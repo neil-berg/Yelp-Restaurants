@@ -65,14 +65,14 @@ const SearchBar = ({ setPosition, setTerm }) => {
       <Form className="form" isDropdownOpen={isDropdownOpen}>
         <input
           className="input-food"
-          type="text"
+          type="searcg"
           placeholder="What are you in the mood for?"
           value={inputFood}
           onChange={e => setInputFood(e.target.value)}
         />
         <input
           className="input-location"
-          type="text"
+          type="searcg"
           placeholder="Enter city, neighborhood, or zipcode"
           value={inputLocation}
           onChange={e => setInputLocation(e.target.value)}
