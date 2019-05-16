@@ -13,7 +13,8 @@ const Home = () => {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, 100px)',
-        gridGap: '1rem'
+        gridGap: '1rem',
+        paddingTop: '5rem'
       }}
     >
       <Box className="box">1</Box>
