@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FormContainer = styled.div`
@@ -65,14 +66,21 @@ const FormContainer = styled.div`
   }
 `;
 
-const SearchBar = ({ setPosition, setTerm }) => {
+const SearchBar = ({
+  setTerm,
+  setUserLocation,
+  setLatitude,
+  setLongitude,
+  history
+}) => {
   const [inputFood, setInputFood] = useState('');
   const [inputLocation, setInputLocation] = useState('');
   const [focus, setFocus] = useState(null);
   const [isFormValid, setFormValid] = useState(false);
 
   const locationSuccess = position => {
-    setPosition(position.coords);
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
     setInputLocation('Current Location');
   };
 
@@ -91,6 +99,13 @@ const SearchBar = ({ setPosition, setTerm }) => {
   const handleSearchClick = () => {
     const isValid = inputFood !== '' && inputLocation !== '';
     setFormValid(isValid);
+    setTerm(inputFood);
+    setUserLocation(inputLocation);
+    if ({ isFormValid }) {
+      // Hide suggestion lists and navigate to the results page
+      setFocus(null);
+      history.push('/restaurants');
+    }
   };
 
   return (
@@ -156,4 +171,4 @@ const SearchBar = ({ setPosition, setTerm }) => {
   );
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);

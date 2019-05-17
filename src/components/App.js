@@ -8,25 +8,42 @@ import BusinessList from './BusinessList';
 
 class App extends React.Component {
   state = {
-    position: {},
-    term: ''
+    term: '',
+    userLocation: '',
+    latitude: null,
+    longitude: null
   };
 
-  setPosition = position => this.setState({ position });
-
   setTerm = term => this.setState({ term });
+  setUserLocation = userLocation => this.setState({ userLocation });
+  setLatitude = latitude => this.setState({ latitude });
+  setLongitude = longitude => this.setState({ longitude });
 
   render() {
     return (
       <div>
-        <Header />
-        <p>{this.state.position.latitude}</p>
-        <p>{this.state.position.longitude}</p>
-        <SearchBar setPosition={this.setPosition} setTerm={this.setTerm} />
         <Router>
+          <Header />
+          <SearchBar
+            setTerm={this.setTerm}
+            setUserLocation={this.setUserLocation}
+            setLatitude={this.setLatitude}
+            setLongitude={this.setLongitude}
+          />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/results" component={BusinessList} />
+            <Route
+              path="/restaurants"
+              component={props => (
+                <BusinessList
+                  {...props}
+                  term={this.state.term}
+                  userLocation={this.state.userLocation}
+                  latitude={this.state.latitude}
+                  longitude={this.state.longitude}
+                />
+              )}
+            />
           </Switch>
         </Router>
       </div>

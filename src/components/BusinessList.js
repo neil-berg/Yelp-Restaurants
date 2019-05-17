@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 
 import yelpapi from '../apis/yelpapi';
 
-const BusinessList = () => {
+const BusinessList = ({ term, userLocation, latitude, longitude }) => {
   const [businesses, setBusinesses] = useState([]);
-  const fetchData = async (location, offset = 0) => {
+
+  const fetchData = async (
+    term,
+    userLocation,
+    latitude,
+    longitude,
+    offset = 0
+  ) => {
     const response = await yelpapi.get('/businesses/search', {
       params: {
-        location: location,
+        term: term,
+        location: userLocation,
+        latitude: latitude,
+        longitude: longitude,
         offset: offset
       }
     });
@@ -15,7 +25,7 @@ const BusinessList = () => {
   };
 
   useEffect(() => {
-    fetchData('silver lake los angeles', 20);
+    fetchData(term, userLocation, latitude, longitude, 0);
   }, []);
 
   return (
