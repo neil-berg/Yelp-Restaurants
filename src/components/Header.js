@@ -1,5 +1,9 @@
 import React from 'react';
 
-const Header = () => <h1 style={{ color: 'var(--blue)' }}>Yelp App</h1>;
+const Header = () => (
+  <header>
+    <h1 style={{ textAlign: 'center' }}>Chow Now</h1>
+  </header>
+);
 
 export default Header;

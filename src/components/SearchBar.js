@@ -1,95 +1,158 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const Form = styled.form`
-  display: grid;
-  grid-template-columns: 5fr 100px;
-  grid-template-areas:
-    'food search'
-    'location search';
-  grid-gap: 1rem;
-  background: red;
-  padding: 1rem;
+const FormContainer = styled.div`
+  position: relative;
 
-  .input-food {
-    grid-area: food;
-    padding: 0.5rem 1rem 0.5rem 50px;
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    background: mistyrose;
+    padding: 1rem;
+  }
+
+  .input-food,
+  .input-user-location {
+    padding: 0.5rem 1rem;
+    padding-left: 50px;
     border-radius: 5px;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    // outline: none;
+    border: 1px solid #dddddd;
+    font-size: 16px;
   }
 
   .input-food::placeholder {
-    color: green;
-  }
-
-  .input-location {
-    grid-area: location;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    color: black;
   }
 
   .btn-search {
-    grid-area: search;
     border-radius: 10px;
+    padding: 0.5rem 1rem;
+    width: 200px;
+    margin: 0 auto;
   }
 
-  .current-location {
-    display: ${props => (props.isDropdownOpen ? 'block' : 'none')};
-  }
-`;
+  ul.food-list,
+  ul.user-location-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 156px;
+    left: 0;
+    width: 100%;
 
-const Input = styled.input`
-  width: 400px;
+    li:first-child {
+      border-top: 1px lightgrey solid;
+    }
+
+    li.food-item,
+    li.user-location-item {
+      border-bottom: 1px lightgrey solid;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  .food-list {
+    display: ${props => (props.focus === 'input-food' ? 'block' : 'none')};
+  }
+
+  .user-location-list {
+    display: ${props =>
+      props.focus === 'input-user-location' ? 'block' : 'none'};
+  }
 `;
 
 const SearchBar = ({ setPosition, setTerm }) => {
   const [inputFood, setInputFood] = useState('');
   const [inputLocation, setInputLocation] = useState('');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [focus, setFocus] = useState(null);
+  const [isFormValid, setFormValid] = useState(false);
 
   const locationSuccess = position => {
     setPosition(position.coords);
-    setInputLocation('My current location');
+    setInputLocation('Current Location');
   };
 
   const locationError = err =>
     console.error(`ERROR(${err.code}): ${err.message}`);
 
-  const handleLocationClick = e => {
-    setInputLocation('Finding your location...');
-    navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
-    setIsDropdownOpen(false);
+  const handleUserLocationClick = e => {
+    if (e.target.textContent === 'Current Location') {
+      setInputLocation('Finding your location...');
+      navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
+    } else {
+      setInputLocation(e.target.textContent);
+    }
+  };
+
+  const handleSearchClick = () => {
+    const isValid = inputFood !== '' && inputLocation !== '';
+    setFormValid(isValid);
   };
 
   return (
-    <div className="form-container">
-      <Form className="form" isDropdownOpen={isDropdownOpen}>
+    <FormContainer focus={focus} onSubmit={e => e.preventDefault()}>
+      <form className="search-form">
         <input
           className="input-food"
-          type="searcg"
+          type="search"
           placeholder="What are you in the mood for?"
           value={inputFood}
           onChange={e => setInputFood(e.target.value)}
+          onFocus={e => setFocus(e.target.classList.value)}
         />
         <input
-          className="input-location"
-          type="searcg"
+          className="input-user-location"
+          type="search"
           placeholder="Enter city, neighborhood, or zipcode"
           value={inputLocation}
           onChange={e => setInputLocation(e.target.value)}
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          onFocus={e => setFocus(e.target.classList.value)}
         />
-        <div className="current-location" onClick={handleLocationClick}>
-          <p>Use current location</p>
-        </div>
         <button
           className="btn-search"
           type="submit"
-          // onClick={e => handleClick(e)}
+          onClick={() => handleSearchClick()}
         >
-          Search
+          Find Restaurants
         </button>
-      </Form>
-    </div>
+      </form>
+      <ul
+        className="food-list"
+        onClick={e => setInputFood(e.target.textContent)}
+      >
+        <li className="food-item">Sushi</li>
+        <li className="food-item">Tacos</li>
+        <li className="food-item">Pizza</li>
+        <li className="food-item">Pasta</li>
+        <li className="food-item">Thai</li>
+        <li className="food-item">Mediterranean</li>
+        <li className="food-item">French</li>
+        <li className="food-item">Korean BBQ</li>
+        <li className="food-item">Vegan</li>
+        <li className="food-item">Waffles</li>
+      </ul>
+      <ul
+        className="user-location-list"
+        onClick={e => handleUserLocationClick(e)}
+      >
+        <li className="user-location-item" style={{ color: 'blue' }}>
+          Current Location
+        </li>
+        <li className="user-location-item">Chicago, IL</li>
+        <li className="user-location-item">Washington, DC</li>
+        <li className="user-location-item">Miami, FL</li>
+        <li className="user-location-item">Nashville, TN</li>
+        <li className="user-location-item">Boston, MA</li>
+        <li className="user-location-item">Seattle, WA</li>
+        <li className="user-location-item">Kansas City, MO</li>
+        <li className="user-location-item">Austin, TX</li>
+        <li className="user-location-item">Baltimore, MD</li>
+      </ul>
+    </FormContainer>
   );
 };
 
