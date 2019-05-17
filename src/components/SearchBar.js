@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { createSearchSlug } from '../helper';
+
 const FormContainer = styled.div`
   position: relative;
 
@@ -75,12 +77,15 @@ const SearchBar = ({
 }) => {
   const [inputFood, setInputFood] = useState('');
   const [inputLocation, setInputLocation] = useState('');
+  const [lat, setLat] = useState(null);
+  const [lon, setLon] = useState(null);
   const [focus, setFocus] = useState(null);
-  const [isFormValid, setFormValid] = useState(false);
 
   const locationSuccess = position => {
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
+    // setLatitude(position.coords.latitude);
+    // setLongitude(position.coords.longitude);
+    setLat(position.coords.latitude);
+    setLon(position.coords.longitude);
     setInputLocation('Current Location');
   };
 
@@ -98,13 +103,15 @@ const SearchBar = ({
 
   const handleSearchClick = () => {
     const isValid = inputFood !== '' && inputLocation !== '';
-    setFormValid(isValid);
     setTerm(inputFood);
     setUserLocation(inputLocation);
-    if ({ isFormValid }) {
+    if (isValid) {
+      const searchSlug = createSearchSlug(inputFood, inputLocation, lat, lon);
       // Hide suggestion lists and navigate to the results page
       setFocus(null);
-      history.push('/restaurants');
+      history.push(searchSlug);
+    } else {
+      // Display errors
     }
   };
 
@@ -113,7 +120,7 @@ const SearchBar = ({
       <form className="search-form">
         <input
           className="input-food"
-          type="search"
+          type="text"
           placeholder="What are you in the mood for?"
           value={inputFood}
           onChange={e => setInputFood(e.target.value)}
@@ -121,7 +128,7 @@ const SearchBar = ({
         />
         <input
           className="input-user-location"
-          type="search"
+          type="text"
           placeholder="Enter city, neighborhood, or zipcode"
           value={inputLocation}
           onChange={e => setInputLocation(e.target.value)}

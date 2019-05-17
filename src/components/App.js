@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import Home from './Home';
 import Header from './Header';
 import SearchBar from './SearchBar';
-import Home from './Home';
-import BusinessList from './BusinessList';
+import RestaurantList from './RestaurantList';
 
 class App extends React.Component {
   state = {
@@ -32,18 +32,7 @@ class App extends React.Component {
           />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route
-              path="/restaurants"
-              component={props => (
-                <BusinessList
-                  {...props}
-                  term={this.state.term}
-                  userLocation={this.state.userLocation}
-                  latitude={this.state.latitude}
-                  longitude={this.state.longitude}
-                />
-              )}
-            />
+            <Route path="/search/:termID/:locID" component={RestaurantList} />
           </Switch>
         </Router>
       </div>
