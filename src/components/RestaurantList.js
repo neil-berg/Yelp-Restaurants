@@ -5,43 +5,37 @@ import { createSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
 
 const RestaurantList = ({ match }) => {
-  //const searchParams = createSearchParams(match);
-
-  // Parse search term and location or coordinates from URL
-  // const { termID, locID } = match.params;
-  // const term = termID;
-
-  // let location;
-  // let latitude;
-  // let longitude;
-
-  // if (locID.includes('loc=')) {
-  //   location = locID.replace(/loc=/, '');
-  // } else {
-  //   const [latStr, lonStr] = locID.split('&');
-  //   latitude = latStr.replace(/lat=/, '');
-  //   longitude = lonStr.replace(/lon=/, '');
-  // }
   const [term, location, latitude, longitude] = createSearchParams(match);
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const response = await yelpapi.get('/businesses/search', {
-        params: {
-          term: term,
-          location: location,
-          latitude: latitude,
-          longitude: longitude
-        }
-      });
-      setRestaurants(response.data.businesses);
+      setIsError(false);
+
+      try {
+        const response = await yelpapi.get('/businesses/search', {
+          params: {
+            term: term,
+            location: location,
+            latitude: latitude,
+            longitude: longitude
+          }
+        });
+        setRestaurants(response.data.businesses);
+      } catch (error) {
+        setIsError(true);
+      }
       setIsLoading(false);
     };
     fetchData();
   }, [term, location, latitude, longitude]);
+
+  if (isError) {
+    return <div>ERROR!</div>;
+  }
 
   if (isLoading) {
     return <div>LOADINNGGGGG</div>;
