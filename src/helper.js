@@ -21,10 +21,10 @@ export const createSearchSlug = (inputFood, inputLocation, lat, lon) => {
   return `/search/${term}/${loc}`;
 };
 
-// Given a React Router prop of "match", reconstruct necessary search
+// Given a React Router prop of "match", parse necessary search
 // parameters for Yelp Fusion calls. Search params include term, location
 // latitude, and longitude.
-export const createSearchParams = match => {
+export const parseSearchParams = match => {
   // Parse search term and location or coordinates from URL
   const { termID, locID } = match.params;
 

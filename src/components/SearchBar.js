@@ -46,6 +46,7 @@ const FormContainer = styled.div`
     top: 156px;
     left: 0;
     width: 100%;
+    background: white;
 
     li:first-child {
       border-top: 1px lightgrey solid;
@@ -68,13 +69,7 @@ const FormContainer = styled.div`
   }
 `;
 
-const SearchBar = ({
-  setTerm,
-  setUserLocation,
-  setLatitude,
-  setLongitude,
-  history
-}) => {
+const SearchBar = ({ history }) => {
   const [inputFood, setInputFood] = useState('');
   const [inputLocation, setInputLocation] = useState('');
   const [lat, setLat] = useState(null);
@@ -82,8 +77,6 @@ const SearchBar = ({
   const [focus, setFocus] = useState(null);
 
   const locationSuccess = position => {
-    // setLatitude(position.coords.latitude);
-    // setLongitude(position.coords.longitude);
     setLat(position.coords.latitude);
     setLon(position.coords.longitude);
     setInputLocation('Current Location');
@@ -101,10 +94,8 @@ const SearchBar = ({
     }
   };
 
-  const handleSearchClick = () => {
+  const handleFormSubmit = () => {
     const isValid = inputFood !== '' && inputLocation !== '';
-    setTerm(inputFood);
-    setUserLocation(inputLocation);
     if (isValid) {
       const searchSlug = createSearchSlug(inputFood, inputLocation, lat, lon);
       // Hide suggestion lists and navigate to the results page
@@ -137,7 +128,7 @@ const SearchBar = ({
         <button
           className="btn-search"
           type="submit"
-          onClick={() => handleSearchClick()}
+          onClick={() => handleFormSubmit()}
         >
           Find Restaurants
         </button>

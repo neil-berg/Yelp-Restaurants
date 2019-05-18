@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import { createSearchParams } from '../helper';
-
+import Loading from './Loading';
+import Error from './Error';
+import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
 
 const RestaurantList = ({ match }) => {
-  const [term, location, latitude, longitude] = createSearchParams(match);
+  const [term, location, latitude, longitude] = parseSearchParams(match);
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -34,18 +36,20 @@ const RestaurantList = ({ match }) => {
   }, [term, location, latitude, longitude]);
 
   if (isError) {
-    return <div>ERROR!</div>;
+    return <Error />;
   }
 
   if (isLoading) {
-    return <div>LOADINNGGGGG</div>;
+    return <Loading />;
   }
 
   return (
     <div>
       <ul>
         {restaurants.map((item, i) => (
-          <li key={i}>{item.name}</li>
+          <li key={item.id}>
+            <Link to={`/restaurant/${item.alias}/${item.id}`}>{item.name}</Link>
+          </li>
         ))}
       </ul>
     </div>

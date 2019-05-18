@@ -5,34 +5,24 @@ import Home from './Home';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import RestaurantList from './RestaurantList';
+import RestaurantDetails from './RestaurantDetails';
+import NotFound from './NotFound';
 
 class App extends React.Component {
-  state = {
-    term: '',
-    userLocation: '',
-    latitude: null,
-    longitude: null
-  };
-
-  setTerm = term => this.setState({ term });
-  setUserLocation = userLocation => this.setState({ userLocation });
-  setLatitude = latitude => this.setState({ latitude });
-  setLongitude = longitude => this.setState({ longitude });
-
   render() {
     return (
       <div>
         <Router>
           <Header />
-          <SearchBar
-            setTerm={this.setTerm}
-            setUserLocation={this.setUserLocation}
-            setLatitude={this.setLatitude}
-            setLongitude={this.setLongitude}
-          />
+          <SearchBar />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/search/:termID/:locID" component={RestaurantList} />
+            <Route
+              path="/restaurant/:aliasID/:restaurantID"
+              component={RestaurantDetails}
+            />
+            <Route component={NotFound} />
           </Switch>
         </Router>
       </div>
