@@ -18,18 +18,29 @@ const RestaurantDetails = ({ match }) => {
         const response_details = await yelpapi.get(
           `/businesses/${restaurantID}`
         );
-        const response_reviews = await yelpapi.get(
-          `/businesses/${restaurantID}/reviews`
-        );
         setDetails(response_details.data);
-        setReviews(response_reviews.data.reviews);
       } catch (error) {
         setIsError(true);
       }
       setIsLoading(false);
     };
     fetchDetails();
-  }, []);
+  }, [restaurantID]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      setIsError(false);
+      try {
+        const response_reviews = await yelpapi.get(
+          `/businesses/${restaurantID}/reviews`
+        );
+        setReviews(response_reviews.data.reviews);
+      } catch (error) {
+        setIsError(true);
+      }
+    };
+    fetchReviews();
+  }, [restaurantID]);
 
   if (isError) {
     return <div>Error</div>;

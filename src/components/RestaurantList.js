@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import Loading from './Loading';
 import Error from './Error';
+import RestaurantCard from './RestaurantCard';
+
 import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
 
@@ -44,15 +46,15 @@ const RestaurantList = ({ match }) => {
   }
 
   return (
-    <div>
-      <ul>
-        {restaurants.map((item, i) => (
-          <li key={item.id}>
-            <Link to={`/restaurant/${item.alias}/${item.id}`}>{item.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {restaurants.map(restaurant => (
+        <li key={restaurant.id}>
+          <Link to={`/restaurant/${restaurant.alias}/${restaurant.id}`}>
+            <RestaurantCard restaurant={restaurant} />
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 };
 

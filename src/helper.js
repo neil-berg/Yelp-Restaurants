@@ -44,3 +44,7 @@ export const parseSearchParams = match => {
 
   return [term, location, latitude, longitude];
 };
+
+// Convert disance from meters to miles
+export const distanceInMiles = distance =>
+  (Number(distance) / 1609.344).toFixed(1);

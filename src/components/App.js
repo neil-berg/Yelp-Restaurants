@@ -8,26 +8,24 @@ import RestaurantList from './RestaurantList';
 import RestaurantDetails from './RestaurantDetails';
 import NotFound from './NotFound';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Router>
-          <Header />
-          <SearchBar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/search/:termID/:locID" component={RestaurantList} />
-            <Route
-              path="/restaurant/:aliasID/:restaurantID"
-              component={RestaurantDetails}
-            />
-            <Route component={NotFound} />
-          </Switch>
-        </Router>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <Router>
+        <Header />
+        <SearchBar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/search/:termID/:locID" component={RestaurantList} />
+          <Route
+            path="/restaurant/:aliasID/:restaurantID"
+            component={RestaurantDetails}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    </div>
+  );
+};
 
 export default App;

@@ -355,3 +355,10 @@ template {
 [hidden] {
   display: none;
 }
+
+/* Remove bullets and spacing for lists */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
