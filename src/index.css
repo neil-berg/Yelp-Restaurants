@@ -27,7 +27,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Muli', sans-serif;
 }
 
 /**
@@ -81,6 +81,8 @@ pre {
 
 a {
   background-color: transparent;
+  text-decoration: none;
+  color: inherit;
 }
 
 /**

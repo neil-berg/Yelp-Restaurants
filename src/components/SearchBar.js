@@ -47,6 +47,7 @@ const FormContainer = styled.div`
     left: 0;
     width: 100%;
     background: white;
+    z-index: 2;
 
     li:first-child {
       border-top: 1px lightgrey solid;

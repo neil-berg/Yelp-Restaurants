@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import Loading from './Loading';
 import Error from './Error';
@@ -46,15 +45,15 @@ const RestaurantList = ({ match }) => {
   }
 
   return (
-    <ul>
-      {restaurants.map(restaurant => (
-        <li key={restaurant.id}>
-          <Link to={`/restaurant/${restaurant.alias}/${restaurant.id}`}>
+    <main>
+      <ul>
+        {restaurants.map(restaurant => (
+          <li key={restaurant.id}>
             <RestaurantCard restaurant={restaurant} />
-          </Link>
-        </li>
-      ))}
-    </ul>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 };
 
