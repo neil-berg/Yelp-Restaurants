@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Loading from './Loading';
 import Error from './Error';
 import RestaurantCard from './RestaurantCard';
+import AddressMap from './AddressMap';
 
 import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
@@ -46,6 +47,7 @@ const RestaurantList = ({ match }) => {
 
   return (
     <main>
+      <AddressMap />
       <ul>
         {restaurants.map(restaurant => (
           <li key={restaurant.id}>

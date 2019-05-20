@@ -124,7 +124,7 @@ const CoverPhoto = styled.div`
   border-radius: 5px 5px 0 0;
   
   @media screen and (min-width: 550px) {
-    width: 250px;
+    min-width: 200px;
     border-radius: 5px 0 0 5px;
   }
 `;
