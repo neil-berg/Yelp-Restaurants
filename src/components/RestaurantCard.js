@@ -11,12 +11,12 @@ import {
 import { distanceInMiles, getStars } from '../helper';
 
 const Card = styled.div`
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-  margin: 1rem 0.5rem;
-  border-radius: 5px;
+  padding: 1rem 0 0 0;
+  margin: 0 1rem;
+  border-bottom: 1px lightgrey solid;
   display: flex;
   flex-direction: column;
-  max-width: 700px;
+  max-width: 800px;
 
   .info-small {
     padding: 0.5rem;
@@ -27,8 +27,10 @@ const Card = styled.div`
     .name {
       font-size: 1.25em;
       font-weight: bold;
+      font-family: 'Karla', sans-serif;
       margin: 0;
       padding: 0;
+      color: blue;
     }
     .rating-price {
       padding: 0.5rem 0;
@@ -59,8 +61,10 @@ const Card = styled.div`
       .restaurant-link .name {
         font-size: 1.25em;
         font-weight: bold;
+        font-family: 'Karla', sans-serif;
         margin: 0;
         padding: 0;
+        color: blue;
       }
 
       .rating-count .count {
@@ -101,9 +105,9 @@ const Card = styled.div`
     }
   }
 
-  @media screen and (min-width: 550px) {
-    margin: 1rem auto;
+  @media screen and (min-width: 600px) {
     flex-direction: row;
+    padding: 1rem 0;
 
     .info-large {
       display: flex;
@@ -121,11 +125,12 @@ const CoverPhoto = styled.div`
   background-image: url("${props => props.image_url}");
   background-position: center 75%;
   background-size: cover;
-  border-radius: 5px 5px 0 0;
+  border-radius: 5px;
+  //border-radius: 5px 5px 0 0;
   
   @media screen and (min-width: 550px) {
     min-width: 200px;
-    border-radius: 5px 0 0 5px;
+    //border-radius: 5px 0 0 5px;
   }
 `;
 

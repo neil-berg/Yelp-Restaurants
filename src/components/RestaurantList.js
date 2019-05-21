@@ -13,12 +13,23 @@ const Wrapper = styled.div`
   .leaflet-container {
     width: 325px;
     height: 325px;
-    margin: 0.5rem auto;
+    margin: 1rem auto;
     z-index: 1;
   }
 
-  @media screen and (min-width: 800px) {
+  .results {
+    .results-list {
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+
+  @media screen and (min-width: 935px) {
     position: relative;
+
+    .leaflet-container {
+      margin-left: 1rem;
+    }
 
     .map-sidebar {
       position: ${props => (props.scrollY < '235' ? 'absolute' : 'fixed')};
@@ -29,7 +40,7 @@ const Wrapper = styled.div`
     }
 
     .results {
-      margin-left: 325px;
+      margin-left: calc(325px + 2rem);
     }
   }
 `;
@@ -89,7 +100,7 @@ const RestaurantList = ({ match }) => {
         <AddressMap restaurants={restaurants} />
       </div>
       <main className="results">
-        <ul>
+        <ul className="results-list">
           {restaurants.map(restaurant => (
             <li key={restaurant.id}>
               <RestaurantCard restaurant={restaurant} />
