@@ -21,7 +21,6 @@ const FormContainer = styled.div`
     border-radius: 5px;
     margin-bottom: 0.5rem;
     border-radius: 10px;
-    // outline: none;
     border: 1px solid #dddddd;
     font-size: 16px;
   }

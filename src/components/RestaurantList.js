@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 import Loading from './Loading';
 import Error from './Error';
@@ -7,6 +8,15 @@ import AddressMap from './AddressMap';
 
 import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
+
+const Main = styled.main`
+  .leaflet-container {
+    width: 325px;
+    height: 325px;
+    margin: 0.5rem auto;
+    z-index: 1;
+  }
+`;
 
 const RestaurantList = ({ match }) => {
   const [term, location, latitude, longitude] = parseSearchParams(match);
@@ -46,8 +56,8 @@ const RestaurantList = ({ match }) => {
   }
 
   return (
-    <main>
-      <AddressMap />
+    <Main>
+      <AddressMap restaurants={restaurants} />
       <ul>
         {restaurants.map(restaurant => (
           <li key={restaurant.id}>
@@ -55,7 +65,7 @@ const RestaurantList = ({ match }) => {
           </li>
         ))}
       </ul>
-    </main>
+    </Main>
   );
 };
 

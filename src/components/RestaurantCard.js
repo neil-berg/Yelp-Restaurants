@@ -8,7 +8,7 @@ import {
   faCircle
 } from '@fortawesome/free-solid-svg-icons';
 
-import { distanceInMiles } from '../helper';
+import { distanceInMiles, getStars } from '../helper';
 
 const Card = styled.div`
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
@@ -130,15 +130,7 @@ const CoverPhoto = styled.div`
 `;
 
 const RestaurantCard = ({ restaurant }) => {
-  const stars = [...new Array(5).keys()].map(i => {
-    if (i + 1 <= Number(restaurant.rating)) {
-      return <FontAwesomeIcon key={i} icon={faStar} color="orange" />;
-    } else if ((Number(restaurant.rating) * 10) % 10 === 5) {
-      return <FontAwesomeIcon key={i} icon={faStarHalfAlt} color="orange" />;
-    } else {
-      return <FontAwesomeIcon key={i} icon={faStar} color="lightgrey" />;
-    }
-  });
+  const stars = getStars(restaurant);
 
   const categories = restaurant.categories
     .map(category => category.title)

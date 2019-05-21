@@ -364,14 +364,3 @@ ul {
   margin: 0;
   padding: 0;
 }
-
-/* Leaflet map */
-/* #mapid {
-  height: 200px;
-  width: 200px;
-} */
-
-.leaflet-container {
-  height: 400px;
-  width: 800px;
-}
