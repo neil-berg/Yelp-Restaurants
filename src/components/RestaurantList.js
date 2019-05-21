@@ -9,12 +9,28 @@ import AddressMap from './AddressMap';
 import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
 
-const Main = styled.main`
+const Wrapper = styled.div`
   .leaflet-container {
     width: 325px;
     height: 325px;
     margin: 0.5rem auto;
     z-index: 1;
+  }
+
+  @media screen and (min-width: 800px) {
+    position: relative;
+
+    .map-sidebar {
+      position: ${props => (props.scrollY < '235' ? 'absolute' : 'fixed')};
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 325px;
+    }
+
+    .results {
+      margin-left: 325px;
+    }
   }
 `;
 
@@ -23,6 +39,7 @@ const RestaurantList = ({ match }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +64,17 @@ const RestaurantList = ({ match }) => {
     fetchData();
   }, [term, location, latitude, longitude]);
 
+  useEffect(
+    () => window.addEventListener('scroll', () => setScrollY(window.scrollY)),
+    []
+  );
+
+  useEffect(() => {
+    return () => {
+      window.removeEventLisener('scroll');
+    };
+  }, []);
+
   if (isError) {
     return <Error />;
   }
@@ -56,16 +84,20 @@ const RestaurantList = ({ match }) => {
   }
 
   return (
-    <Main>
-      <AddressMap restaurants={restaurants} />
-      <ul>
-        {restaurants.map(restaurant => (
-          <li key={restaurant.id}>
-            <RestaurantCard restaurant={restaurant} />
-          </li>
-        ))}
-      </ul>
-    </Main>
+    <Wrapper scrollY={scrollY}>
+      <div className="map-sidebar">
+        <AddressMap restaurants={restaurants} />
+      </div>
+      <main className="results">
+        <ul>
+          {restaurants.map(restaurant => (
+            <li key={restaurant.id}>
+              <RestaurantCard restaurant={restaurant} />
+            </li>
+          ))}
+        </ul>
+      </main>
+    </Wrapper>
   );
 };
 
