@@ -52,6 +52,8 @@ const RestaurantList = ({ match }) => {
   const [isError, setIsError] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
+  const handleScroll = () => setScrollY(window.scrollY);
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -75,14 +77,11 @@ const RestaurantList = ({ match }) => {
     fetchData();
   }, [term, location, latitude, longitude]);
 
-  useEffect(
-    () => window.addEventListener('scroll', () => setScrollY(window.scrollY)),
-    []
-  );
+  useEffect(() => window.addEventListener('scroll', handleScroll), []);
 
   useEffect(() => {
     return () => {
-      window.removeEventLisener('scroll');
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

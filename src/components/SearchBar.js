@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { createSearchSlug } from '../helper';
 
-const FormContainer = styled.div`
+const Header = styled.header`
   position: relative;
+  background: linear-gradient(135deg, #ff4f56, #ff824f);
+
+  .title {
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
 
   .search-form {
     display: flex;
     flex-direction: column;
-    background: mistyrose;
     padding: 1rem;
   }
 
@@ -42,7 +49,7 @@ const FormContainer = styled.div`
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 156px;
+    top: 210px;
     left: 0;
     width: 100%;
     background: white;
@@ -66,6 +73,25 @@ const FormContainer = styled.div`
   .user-location-list {
     display: ${props =>
       props.focus === 'input-user-location' ? 'block' : 'none'};
+  }
+
+  @media screen and (min-width: 800px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .search-form {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .input-food,
+    .input-user-location {
+      padding: 0;
+      margin-bottom: 0;
+      min-width: 250px;
+    }
   }
 `;
 
@@ -107,8 +133,11 @@ const SearchBar = ({ history }) => {
   };
 
   return (
-    <FormContainer focus={focus} onSubmit={e => e.preventDefault()}>
-      <form className="search-form">
+    <Header focus={focus}>
+      <Link to="/">
+        <h1 className="title">Chow Now</h1>
+      </Link>
+      <form className="search-form" onSubmit={e => e.preventDefault()}>
         <input
           className="input-food"
           type="text"
@@ -135,7 +164,10 @@ const SearchBar = ({ history }) => {
       </form>
       <ul
         className="food-list"
-        onClick={e => setInputFood(e.target.textContent)}
+        onClick={e => {
+          setInputFood(e.target.textContent);
+          setFocus(null);
+        }}
       >
         <li className="food-item">Sushi</li>
         <li className="food-item">Tacos</li>
@@ -150,13 +182,16 @@ const SearchBar = ({ history }) => {
       </ul>
       <ul
         className="user-location-list"
-        onClick={e => handleUserLocationClick(e)}
+        onClick={e => {
+          handleUserLocationClick(e);
+          setFocus(null);
+        }}
       >
         <li className="user-location-item" style={{ color: 'blue' }}>
           Current Location
         </li>
         <li className="user-location-item">Chicago, IL</li>
-        <li className="user-location-item">Washington, DC</li>
+        <li className="user-location-item">Los Angeles, CA</li>
         <li className="user-location-item">Miami, FL</li>
         <li className="user-location-item">Nashville, TN</li>
         <li className="user-location-item">Boston, MA</li>
@@ -165,7 +200,7 @@ const SearchBar = ({ history }) => {
         <li className="user-location-item">Austin, TX</li>
         <li className="user-location-item">Baltimore, MD</li>
       </ul>
-    </FormContainer>
+    </Header>
   );
 };
 

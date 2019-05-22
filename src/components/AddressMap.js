@@ -36,7 +36,7 @@ const AddressMap = ({ restaurants }) => {
   return (
     <Map
       center={[centerLat || 25, centerLon || -120]}
-      zoom={10}
+      zoom={12}
       maxZoom={15}
       attributionControl={true}
       zoomControl={true}

@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Home = () => <div>''</div>;
+import { ReactComponent as Logo } from '../assets/cupcake.svg';
+
+const Home = () => (
+  <div>
+    <Logo />
+  </div>
+);
 
 export default Home;
