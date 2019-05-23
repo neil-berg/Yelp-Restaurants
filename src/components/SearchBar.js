@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUtensils,
   faMapMarkerAlt,
-  faSearch
+  faSearch,
+  faLocationArrow
 } from '@fortawesome/free-solid-svg-icons';
 
 import { createSearchSlug } from '../helper';
@@ -53,10 +54,6 @@ const Header = styled.header`
     width: 100%;
   }
 
-  // .input-food::placeholder {
-  //   color: grey;
-  // }
-
   .btn-search {
     border-radius: 10px;
     padding: 0.5rem 1rem;
@@ -76,11 +73,12 @@ const Header = styled.header`
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 210px;
-    left: 0;
+    top: 138px;
+    //left: -16px;
     width: 100%;
     background: white;
     z-index: 2;
+    cursor: pointer;
 
     li:first-child {
       border-top: 1px lightgrey solid;
@@ -91,6 +89,19 @@ const Header = styled.header`
       border-bottom: 1px lightgrey solid;
       padding: 0.5rem 1rem;
     }
+
+    .icon-arrow {
+      color: blue;
+    }
+
+    .current-location {
+      color: blue;
+      padding-left: 0.5rem;
+    }
+  }
+
+  ul.user-location-list {
+    top: 94px;
   }
 
   .food-list {
@@ -148,6 +159,27 @@ const Header = styled.header`
     .btn-search-text {
       display: none;
     }
+
+    ul.food-list,
+    ul.user-location-list {
+      top: 34px;
+      width: 315px;
+      border-left: 1px lightgrey solid;
+      border-right: 1px lightgrey solid;
+    }
+  }
+
+  @media (hover: hover) {
+    ul.food-list li:hover,
+    ul.user-location-list li:hover {
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      color: white;
+
+      .icon-arrow,
+      .current-location {
+        color: white;
+      }
+    }
   }
 `;
 
@@ -168,11 +200,12 @@ const SearchBar = ({ history }) => {
     console.error(`ERROR(${err.code}): ${err.message}`);
 
   const handleUserLocationClick = e => {
-    if (e.target.textContent === 'Current Location') {
+    const text = e.target.textContent;
+    if (text === 'Current Location' || text === '') {
       setInputLocation('Finding your location...');
       navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
     } else {
-      setInputLocation(e.target.textContent);
+      setInputLocation(text);
     }
   };
 
@@ -204,6 +237,24 @@ const SearchBar = ({ history }) => {
             onChange={e => setInputFood(e.target.value)}
             onFocus={e => setFocus(e.target.classList.value)}
           />
+          <ul
+            className="food-list"
+            onClick={e => {
+              setInputFood(e.target.textContent);
+              setFocus(null);
+            }}
+          >
+            <li className="food-item">Sushi</li>
+            <li className="food-item">Tacos</li>
+            <li className="food-item">Pizza</li>
+            <li className="food-item">Pasta</li>
+            <li className="food-item">Thai</li>
+            <li className="food-item">Mediterranean</li>
+            <li className="food-item">French</li>
+            <li className="food-item">Korean BBQ</li>
+            <li className="food-item">Vegan</li>
+            <li className="food-item">Waffles</li>
+          </ul>
         </div>
         <div className="input-user-location-container">
           <FontAwesomeIcon className="icon-marker" icon={faMapMarkerAlt} />
@@ -215,54 +266,38 @@ const SearchBar = ({ history }) => {
             onChange={e => setInputLocation(e.target.value)}
             onFocus={e => setFocus(e.target.classList.value)}
           />
+          <ul
+            className="user-location-list"
+            onClick={e => {
+              handleUserLocationClick(e);
+              setFocus(null);
+            }}
+          >
+            <li className="user-location-item">
+              <FontAwesomeIcon className="icon-arrow" icon={faLocationArrow} />
+              <span className="current-location">Current Location</span>
+            </li>
+            <li className="user-location-item">Chicago, IL</li>
+            <li className="user-location-item">Los Angeles, CA</li>
+            <li className="user-location-item">Miami, FL</li>
+            <li className="user-location-item">Nashville, TN</li>
+            <li className="user-location-item">Boston, MA</li>
+            <li className="user-location-item">Seattle, WA</li>
+            <li className="user-location-item">Kansas City, MO</li>
+            <li className="user-location-item">Austin, TX</li>
+            <li className="user-location-item">Baltimore, MD</li>
+          </ul>
         </div>
         <button
           className="btn-search"
           type="submit"
           onClick={() => handleFormSubmit()}
+          onFocus={() => setFocus(null)}
         >
           <FontAwesomeIcon className="btn-search-icon" icon={faSearch} />
           <span className="btn-search-text">Search</span>
         </button>
       </form>
-      <ul
-        className="food-list"
-        onClick={e => {
-          setInputFood(e.target.textContent);
-          setFocus(null);
-        }}
-      >
-        <li className="food-item">Sushi</li>
-        <li className="food-item">Tacos</li>
-        <li className="food-item">Pizza</li>
-        <li className="food-item">Pasta</li>
-        <li className="food-item">Thai</li>
-        <li className="food-item">Mediterranean</li>
-        <li className="food-item">French</li>
-        <li className="food-item">Korean BBQ</li>
-        <li className="food-item">Vegan</li>
-        <li className="food-item">Waffles</li>
-      </ul>
-      <ul
-        className="user-location-list"
-        onClick={e => {
-          handleUserLocationClick(e);
-          setFocus(null);
-        }}
-      >
-        <li className="user-location-item" style={{ color: 'blue' }}>
-          Current Location
-        </li>
-        <li className="user-location-item">Chicago, IL</li>
-        <li className="user-location-item">Los Angeles, CA</li>
-        <li className="user-location-item">Miami, FL</li>
-        <li className="user-location-item">Nashville, TN</li>
-        <li className="user-location-item">Boston, MA</li>
-        <li className="user-location-item">Seattle, WA</li>
-        <li className="user-location-item">Kansas City, MO</li>
-        <li className="user-location-item">Austin, TX</li>
-        <li className="user-location-item">Baltimore, MD</li>
-      </ul>
     </Header>
   );
 };

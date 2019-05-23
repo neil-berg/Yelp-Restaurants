@@ -1,10 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faStar,
-  faStarHalfAlt,
-  faCircle
-} from '@fortawesome/free-solid-svg-icons';
+import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Create URL whenever a valid search form is submitted
 // This URL is this used to fetch restaurants in RestaurantList
