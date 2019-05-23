@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faUtensils,
+  faMapMarkerAlt,
+  faSearch
+} from '@fortawesome/free-solid-svg-icons';
 
 import { createSearchSlug } from '../helper';
 
 const Header = styled.header`
   position: relative;
-  background: linear-gradient(135deg, #ff4f56, #ff824f);
+  background: linear-gradient(135deg, var(--red), var(--orange));
 
   .title {
     color: white;
     margin: 0;
-    padding: 0;
+    padding: 0.5rem 0 0 0;
     text-align: center;
   }
 
@@ -21,26 +27,47 @@ const Header = styled.header`
     padding: 1rem;
   }
 
+  .input-food-container,
+  .input-user-location-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .icon-utensils,
+  .icon-marker {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    font-size: 20px;
+    color: black;
+  }
+
   .input-food,
   .input-user-location {
-    padding: 0.5rem 1rem;
-    padding-left: 50px;
+    padding: 0.5rem 1rem 0.5rem 35px;
     border-radius: 5px;
     margin-bottom: 0.5rem;
     border-radius: 10px;
     border: 1px solid #dddddd;
     font-size: 16px;
+    width: 100%;
   }
 
-  .input-food::placeholder {
-    color: black;
-  }
+  // .input-food::placeholder {
+  //   color: grey;
+  // }
 
   .btn-search {
     border-radius: 10px;
     padding: 0.5rem 1rem;
-    width: 200px;
     margin: 0 auto;
+    color: white;
+    background: var(--red);
+    border: 0;
+  }
+
+  .btn-search-icon {
+    margin-right: 1rem;
   }
 
   ul.food-list,
@@ -75,11 +102,15 @@ const Header = styled.header`
       props.focus === 'input-user-location' ? 'block' : 'none'};
   }
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 901px) {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    .title {
+      padding: 0;
+    }
 
     .search-form {
       display: flex;
@@ -88,9 +119,34 @@ const Header = styled.header`
 
     .input-food,
     .input-user-location {
-      padding: 0;
       margin-bottom: 0;
-      min-width: 250px;
+      min-width: 315px;
+      border: transparent;
+    }
+
+    .input-food {
+      border-radius: 5px 0 0 5px;
+    }
+    .input-user-location {
+      border-radius: 0;
+      border-right: 0;
+      border-left: 1px lightgrey solid;
+    }
+
+    .btn-search {
+      width: auto;
+      border-radius: 0 5px 5px 0;
+      border-color: transparent;
+      background: var(--red);
+      color: white;
+    }
+
+    .btn-search-icon {
+      margin: 0;
+    }
+
+    .btn-search-text {
+      display: none;
     }
   }
 `;
@@ -138,28 +194,35 @@ const SearchBar = ({ history }) => {
         <h1 className="title">Chow Now</h1>
       </Link>
       <form className="search-form" onSubmit={e => e.preventDefault()}>
-        <input
-          className="input-food"
-          type="text"
-          placeholder="What are you in the mood for?"
-          value={inputFood}
-          onChange={e => setInputFood(e.target.value)}
-          onFocus={e => setFocus(e.target.classList.value)}
-        />
-        <input
-          className="input-user-location"
-          type="text"
-          placeholder="Enter city, neighborhood, or zipcode"
-          value={inputLocation}
-          onChange={e => setInputLocation(e.target.value)}
-          onFocus={e => setFocus(e.target.classList.value)}
-        />
+        <div className="input-food-container">
+          <FontAwesomeIcon className="icon-utensils" icon={faUtensils} />
+          <input
+            className="input-food"
+            type="text"
+            placeholder="What are you in the mood for?"
+            value={inputFood}
+            onChange={e => setInputFood(e.target.value)}
+            onFocus={e => setFocus(e.target.classList.value)}
+          />
+        </div>
+        <div className="input-user-location-container">
+          <FontAwesomeIcon className="icon-marker" icon={faMapMarkerAlt} />
+          <input
+            className="input-user-location"
+            type="text"
+            placeholder="City, neighborhood, zipcode, etc."
+            value={inputLocation}
+            onChange={e => setInputLocation(e.target.value)}
+            onFocus={e => setFocus(e.target.classList.value)}
+          />
+        </div>
         <button
           className="btn-search"
           type="submit"
           onClick={() => handleFormSubmit()}
         >
-          Find Restaurants
+          <FontAwesomeIcon className="btn-search-icon" icon={faSearch} />
+          <span className="btn-search-text">Search</span>
         </button>
       </form>
       <ul

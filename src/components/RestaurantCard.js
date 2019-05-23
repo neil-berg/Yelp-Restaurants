@@ -30,7 +30,7 @@ const Card = styled.div`
       font-family: 'Karla', sans-serif;
       margin: 0;
       padding: 0;
-      color: blue;
+      color: var(--red);
     }
     .rating-price {
       padding: 0.5rem 0;
@@ -64,7 +64,7 @@ const Card = styled.div`
         font-family: 'Karla', sans-serif;
         margin: 0;
         padding: 0;
-        color: blue;
+        color: var(--red);
       }
 
       .rating-count .count {

@@ -1,6 +1,12 @@
 /*! Customized version of normalize.css v8.0.1 
 | MIT License | github.com/necolas/normalize.css */
 
+/* Custom colors */
+:root {
+  --red: #ff4f56;
+  --orange: #ff824f;
+}
+
 /* Document
    ========================================================================== */
 
