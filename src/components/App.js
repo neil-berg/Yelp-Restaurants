@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './Home';
@@ -8,18 +8,53 @@ import RestaurantDetails from './RestaurantDetails';
 import NotFound from './NotFound';
 
 const App = () => {
+  const [focus, setFocus] = useState(null);
+
+  const handleOutsideClick = e => {
+    if (e.target.nodeName !== 'INPUT') {
+      setFocus(null);
+    }
+  };
+
   return (
     <div>
       <Router>
-        <SearchBar />
+        <SearchBar
+          focus={focus}
+          setFocus={setFocus}
+          handleOutsideClick={handleOutsideClick}
+        />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/search/:termID/:locID" component={RestaurantList} />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Home {...props} handleOutsideClick={handleOutsideClick} />
+            )}
+          />
+          <Route
+            path="/search/:termID/:locID"
+            render={props => (
+              <RestaurantList
+                {...props}
+                handleOutsideClick={handleOutsideClick}
+              />
+            )}
+          />
           <Route
             path="/restaurant/:aliasID/:restaurantID"
-            component={RestaurantDetails}
+            render={props => (
+              <RestaurantDetails
+                {...props}
+                handleOutsideClick={handleOutsideClick}
+              />
+            )}
           />
-          <Route component={NotFound} />
+          <Route
+            render={props => (
+              <NotFound {...props} handleOutsideClick={handleOutsideClick} />
+            )}
+          />
         </Switch>
       </Router>
     </div>

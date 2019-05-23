@@ -74,11 +74,11 @@ const Header = styled.header`
     padding: 0;
     position: absolute;
     top: 138px;
-    //left: -16px;
     width: 100%;
     background: white;
     z-index: 2;
     cursor: pointer;
+    border-bottom: 1px lightgrey solid;
 
     li:first-child {
       border-top: 1px lightgrey solid;
@@ -86,7 +86,7 @@ const Header = styled.header`
 
     li.food-item,
     li.user-location-item {
-      border-bottom: 1px lightgrey solid;
+      //border-bottom: 1px lightgrey solid;
       padding: 0.5rem 1rem;
     }
 
@@ -183,12 +183,11 @@ const Header = styled.header`
   }
 `;
 
-const SearchBar = ({ history }) => {
+const SearchBar = ({ history, focus, setFocus, handleOutsideClick }) => {
   const [inputFood, setInputFood] = useState('');
   const [inputLocation, setInputLocation] = useState('');
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
-  const [focus, setFocus] = useState(null);
 
   const locationSuccess = position => {
     setLat(position.coords.latitude);
@@ -222,7 +221,7 @@ const SearchBar = ({ history }) => {
   };
 
   return (
-    <Header focus={focus}>
+    <Header focus={focus} onClick={handleOutsideClick}>
       <Link to="/">
         <h1 className="title">Chow Now</h1>
       </Link>

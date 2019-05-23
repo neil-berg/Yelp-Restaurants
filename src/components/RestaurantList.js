@@ -45,7 +45,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const RestaurantList = ({ match }) => {
+const RestaurantList = ({ match, handleOutsideClick }) => {
   const [term, location, latitude, longitude] = parseSearchParams(match);
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -94,7 +94,7 @@ const RestaurantList = ({ match }) => {
   }
 
   return (
-    <Wrapper scrollY={scrollY}>
+    <Wrapper scrollY={scrollY} onClick={handleOutsideClick}>
       <div className="map-sidebar">
         <AddressMap restaurants={restaurants} />
       </div>

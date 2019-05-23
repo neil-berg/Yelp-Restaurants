@@ -2,8 +2,8 @@ import React from 'react';
 
 import { ReactComponent as Logo } from '../assets/cupcake.svg';
 
-const Home = () => (
-  <div>
+const Home = ({ handleOutsideClick }) => (
+  <div onClick={handleOutsideClick}>
     <Logo />
   </div>
 );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import yelpapi from '../apis/yelpapi';
 
-const RestaurantDetails = ({ match }) => {
+const RestaurantDetails = ({ match, handleOutsideClick }) => {
   const restaurantID = match.params.restaurantID;
 
   const [details, setDetails] = useState({});
@@ -51,7 +51,7 @@ const RestaurantDetails = ({ match }) => {
   }
 
   return (
-    <div>
+    <div onClick={handleOutsideClick}>
       <p>{details.alias}</p>
       <p>{reviews.length}</p>
     </div>

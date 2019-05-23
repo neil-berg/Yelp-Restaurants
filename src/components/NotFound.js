@@ -1,8 +1,8 @@
 import React from 'react';
 
-const NotFound = () => {
+const NotFound = ({ handleOutsideClick }) => {
   return (
-    <div>
+    <div onClick={handleOutsideClick}>
       <p>Not Found!</p>
     </div>
   );
