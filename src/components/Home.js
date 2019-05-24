@@ -26,7 +26,6 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     width: 200px;
-    //border: 1px grey solid;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 

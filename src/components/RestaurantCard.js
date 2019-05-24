@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import yelpLogo from '../assets/Yelp_trademark_RGB.png';
 
 import { distanceInMiles, getStars } from '../helper';
 
@@ -15,7 +16,7 @@ const Card = styled.div`
   max-width: 800px;
 
   .info-small {
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
     > p {
       margin: 0;
       padding: 0;
@@ -29,15 +30,16 @@ const Card = styled.div`
       color: var(--red);
     }
     .rating-price {
-      padding: 0.5rem 0;
+      padding-top: 1rem;
       .price {
         color: grey;
         margin-left: 1rem;
       }
     }
-    .distance-address {
+    .distance-address-logo {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       color: grey;
       .icon-circle {
         margin: 0 0.5rem;
@@ -45,6 +47,11 @@ const Card = styled.div`
         color: lightgrey;
       }
     }
+  }
+
+  .yelp-logo {
+    width: 75px;
+    height: auto;
   }
 
   .info-large {
@@ -72,7 +79,6 @@ const Card = styled.div`
     .right {
       flex: 1;
       text-align: right;
-
       > p,
       span {
         padding: 0;
@@ -89,6 +95,10 @@ const Card = styled.div`
           font-size: 6px;
           color: lightgrey;
         }
+      }
+
+      .zipcode {
+        padding-left: 0.35rem;
       }
 
       .phone {
@@ -116,17 +126,15 @@ const Card = styled.div`
 `;
 
 const CoverPhoto = styled.div`
-  height: 200px;
+  height: 175px;
   width: auto;
   background-image: url("${props => props.image_url}");
   background-position: center 75%;
   background-size: cover;
   border-radius: 5px;
-  //border-radius: 5px 5px 0 0;
   
   @media screen and (min-width: 550px) {
-    min-width: 200px;
-    //border-radius: 5px 0 0 5px;
+    min-width: 175px;
   }
 `;
 
@@ -148,13 +156,23 @@ const RestaurantCard = ({ restaurant }) => {
           <span className="rating">{stars}</span>
           <span className="price">{restaurant.price}</span>
         </p>
-        <p className="distance-address">
-          <span className="distance">
-            {distanceInMiles(restaurant.distance)} mi
-          </span>
-          <FontAwesomeIcon className="icon-circle" icon={faCircle} />
-          <span className="address">{restaurant.location.address1}</span>
-        </p>
+        <div className="distance-address-logo">
+          <div className="distance-address">
+            <span className="distance">
+              {distanceInMiles(restaurant.distance)} mi
+            </span>
+            <FontAwesomeIcon className="icon-circle" icon={faCircle} />
+            <span className="address">{restaurant.location.address1}</span>
+          </div>
+          <a
+            href={restaurant.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="yelp-link"
+          >
+            <img className="yelp-logo" src={yelpLogo} alt="logo" />
+          </a>
+        </div>
       </div>
 
       <div className="info-large">
@@ -183,8 +201,16 @@ const RestaurantCard = ({ restaurant }) => {
           <p className="address1">{restaurant.location.address1}</p>
           <p className="address2">
             {restaurant.location.city}, {restaurant.location.state}
-            <span className="zip_code">{restaurant.location.zip_code}</span>
+            <span className="zipcode">{restaurant.location.zip_code}</span>
           </p>
+          <a
+            href={restaurant.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="yelp-link"
+          >
+            <img className="yelp-logo" src={yelpLogo} alt="logo" />
+          </a>
         </div>
       </div>
     </Card>

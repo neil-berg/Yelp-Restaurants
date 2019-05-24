@@ -6,6 +6,7 @@ import SearchBar from './SearchBar';
 import RestaurantList from './RestaurantList';
 import RestaurantDetails from './RestaurantDetails';
 import NotFound from './NotFound';
+import Footer from './Footer';
 
 const App = () => {
   const [inputFood, setInputFood] = useState('');
@@ -63,6 +64,7 @@ const App = () => {
             )}
           />
         </Switch>
+        <Footer />
       </Router>
     </div>
   );
