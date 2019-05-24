@@ -61,6 +61,11 @@ const Header = styled.header`
     color: white;
     background: var(--red);
     border: 0;
+    transition: background 0.2s ease-in-out;
+  }
+
+  .btn-search:active {
+    background: var(--lightred);
   }
 
   .btn-search-icon {
@@ -180,11 +185,26 @@ const Header = styled.header`
         color: white;
       }
     }
+
+    .btn-search:hover {
+      background: var(--darkred);
+    }
+
+    .btn-search:active {
+      background: var(--lightred);
+    }
   }
 `;
 
-const SearchBar = ({ history, focus, setFocus, handleOutsideClick }) => {
-  const [inputFood, setInputFood] = useState('');
+const SearchBar = ({
+  history,
+  inputFood,
+  setInputFood,
+  focus,
+  setFocus,
+  handleOutsideClick
+}) => {
+  // const [inputFood, setInputFood] = useState('');
   const [inputLocation, setInputLocation] = useState('');
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);

@@ -8,6 +8,7 @@ import RestaurantDetails from './RestaurantDetails';
 import NotFound from './NotFound';
 
 const App = () => {
+  const [inputFood, setInputFood] = useState('');
   const [focus, setFocus] = useState(null);
 
   const handleOutsideClick = e => {
@@ -20,6 +21,8 @@ const App = () => {
     <div>
       <Router>
         <SearchBar
+          inputFood={inputFood}
+          setInputFood={setInputFood}
           focus={focus}
           setFocus={setFocus}
           handleOutsideClick={handleOutsideClick}
@@ -29,7 +32,11 @@ const App = () => {
             exact
             path="/"
             render={props => (
-              <Home {...props} handleOutsideClick={handleOutsideClick} />
+              <Home
+                {...props}
+                setInputFood={setInputFood}
+                handleOutsideClick={handleOutsideClick}
+              />
             )}
           />
           <Route
