@@ -155,8 +155,6 @@ const CoverPhoto = styled.div`
 `;
 
 const RestaurantCard = ({ restaurant }) => {
-  const stars = getStars(restaurant);
-
   const categories = restaurant.categories
     .map(category => category.title)
     .join(', ');

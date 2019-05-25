@@ -13,9 +13,10 @@ const StyledFooter = styled.footer`
   .yelp-credit,
   .icon-credit {
     color: white;
+    text-align: center;
   }
   .yelp-credit img {
-    width: 250px;
+    width: 225px;
     height: auto;
   }
 `;

@@ -16,7 +16,7 @@ import { ReactComponent as DessertSVG } from '../assets/dessert.svg';
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-columns: repeat(auto-fit, 160px);
   grid-gap: 1em;
   justify-content: center;
   margin: 1rem 0;
@@ -25,13 +25,13 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
+    width: 160px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
     svg {
-      width: 180px;
-      height: 180px;
+      width: 120px;
+      height: 120px;
       margin: 1rem;
     }
 
@@ -42,6 +42,17 @@ const Container = styled.div`
     }
   }
 
+  @media screen and (min-width: 500px) {
+    grid-template-columns: repeat(auto-fit, 200px);
+    .option {
+      width: 200px;
+
+      svg {
+        width: 180px;
+        height: 180x;
+      }
+    }
+  }
   @media (hover: hover) {
     .option:hover {
       background: var(--red);

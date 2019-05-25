@@ -59,8 +59,9 @@ const Header = styled.header`
     padding: 0.5rem 1rem;
     margin: 0 auto;
     color: white;
-    background: var(--red);
-    border: 0;
+    background: ${props => (props.isLoadingLocation ? 'grey' : 'var(--red)')};
+    border: 1px lightgrey solid;
+    width: 100%;
     transition: background 0.2s ease-in-out;
   }
 
@@ -152,8 +153,7 @@ const Header = styled.header`
     .btn-search {
       width: auto;
       border-radius: 0 5px 5px 0;
-      border-color: transparent;
-      background: var(--red);
+      border: 0;
       color: white;
     }
 
@@ -204,8 +204,8 @@ const SearchBar = ({
   setFocus,
   handleOutsideClick
 }) => {
-  // const [inputFood, setInputFood] = useState('');
   const [inputLocation, setInputLocation] = useState('');
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
 
@@ -213,14 +213,18 @@ const SearchBar = ({
     setLat(position.coords.latitude);
     setLon(position.coords.longitude);
     setInputLocation('Current Location');
+    setIsLoadingLocation(false);
   };
 
-  const locationError = err =>
+  const locationError = err => {
     console.error(`ERROR(${err.code}): ${err.message}`);
+    setIsLoadingLocation(false);
+  };
 
   const handleUserLocationClick = e => {
     const text = e.target.textContent;
     if (text === 'Current Location' || text === '') {
+      setIsLoadingLocation(true);
       setInputLocation('Finding your location...');
       navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
     } else {
@@ -241,7 +245,11 @@ const SearchBar = ({
   };
 
   return (
-    <Header focus={focus} onClick={handleOutsideClick}>
+    <Header
+      isLoadingLocation={isLoadingLocation}
+      focus={focus}
+      onClick={handleOutsideClick}
+    >
       <Link to="/">
         <h1 className="title">Chow Now</h1>
       </Link>
@@ -310,6 +318,7 @@ const SearchBar = ({
         <button
           className="btn-search"
           type="submit"
+          disabled={isLoadingLocation}
           onClick={() => handleFormSubmit()}
           onFocus={() => setFocus(null)}
         >
