@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import styled from 'styled-components';
 
 import { getMapCenter, distanceInMiles, getStars } from '../helper';
 
@@ -9,7 +8,6 @@ const AddressMap = ({ restaurants }) => {
   const [centerLat, centerLon] = getMapCenter(restaurants);
 
   const markers = restaurants.map((restaurant, i) => {
-    const stars = getStars(restaurant);
     return (
       <Marker
         key={restaurant.id}
@@ -24,7 +22,11 @@ const AddressMap = ({ restaurants }) => {
               {restaurant.name}
             </p>
           </Link>
-          {stars}
+          <img
+            src={getStars(restaurant)}
+            alt="star rating"
+            style={{ width: '75px', height: 'auto', paddingTop: '0.25rem' }}
+          />
           <p style={{ margin: '0', padding: '0' }}>
             {distanceInMiles(restaurant.distance)} mi
           </p>

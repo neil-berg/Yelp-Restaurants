@@ -1,6 +1,13 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
+import zeroStars from './assets/regular_0@3x.png';
+import oneStars from './assets/regular_1@3x.png';
+import oneHalfStars from './assets/regular_1_half@3x.png';
+import twoStars from './assets/regular_3@3x.png';
+import twoHalfStars from './assets/regular_2_half@3x.png';
+import threeStars from './assets/regular_3@3x.png';
+import threeHalfStars from './assets/regular_3_half@3x.png';
+import fourStars from './assets/regular_4@3x.png';
+import fourHalfStars from './assets/regular_4_half@3x.png';
+import fiveStars from './assets/regular_5@3x.png';
 
 // Create URL whenever a valid search form is submitted
 // This URL is this used to fetch restaurants in RestaurantList
@@ -64,14 +71,19 @@ export const getMapCenter = restaurants => {
   return [centerLat, centerLon];
 };
 
-// Create star rating icons
-export const getStars = restaurant =>
-  [...new Array(5).keys()].map(i => {
-    if (i + 1 <= Number(restaurant.rating)) {
-      return <FontAwesomeIcon key={i} icon={faStar} color="orange" />;
-    } else if ((Number(restaurant.rating) * 10) % 10 === 5) {
-      return <FontAwesomeIcon key={i} icon={faStarHalfAlt} color="orange" />;
-    } else {
-      return <FontAwesomeIcon key={i} icon={faStar} color="lightgrey" />;
-    }
-  });
+export const getStars = restaurant => {
+  const ratingToStars = {
+    '0': zeroStars,
+    '1': oneStars,
+    '1.5': oneHalfStars,
+    '2': twoStars,
+    '2.5': twoHalfStars,
+    '3': threeStars,
+    '3.5': threeHalfStars,
+    '4': fourStars,
+    '4.5': fourHalfStars,
+    '5': fiveStars
+  };
+
+  return ratingToStars[restaurant.rating];
+};

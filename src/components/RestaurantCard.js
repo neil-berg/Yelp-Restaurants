@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
+
 import yelpLogo from '../assets/Yelp_trademark_RGB.png';
 
 import { distanceInMiles, getStars } from '../helper';
@@ -31,6 +32,12 @@ const Card = styled.div`
     }
     .rating-price {
       padding-top: 1rem;
+      display: flex;
+      align-items: center;
+      .rating {
+        width: 100px;
+        height: auto;
+      }
       .price {
         color: grey;
         margin-left: 1rem;
@@ -70,6 +77,15 @@ const Card = styled.div`
         color: var(--red);
       }
 
+      .rating-count {
+        display: flex;
+        align-items: center;
+      }
+
+      .rating-count .rating {
+        width: 100px;
+        height: auto;
+      }
       .rating-count .count {
         color: grey;
         padding-left: 0.5rem;
@@ -153,7 +169,11 @@ const RestaurantCard = ({ restaurant }) => {
           <p className="name">{restaurant.name}</p>
         </Link>
         <p className="rating-price">
-          <span className="rating">{stars}</span>
+          <img
+            className="rating"
+            src={getStars(restaurant)}
+            alt="star rating"
+          />
           <span className="price">{restaurant.price}</span>
         </p>
         <div className="distance-address-logo">
@@ -184,7 +204,11 @@ const RestaurantCard = ({ restaurant }) => {
             <p className="name">{restaurant.name}</p>
           </Link>
           <p className="rating-count">
-            <span className="rating">{stars}</span>
+            <img
+              className="rating"
+              src={getStars(restaurant)}
+              alt="star rating"
+            />
             <span className="count">{restaurant.review_count} reviews</span>
           </p>
           <p className="categories">{categories}</p>
