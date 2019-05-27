@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import Loading from './Loading';
 import yelpapi from '../apis/yelpapi';
 
 const RestaurantDetails = ({ match, handleOutsideClick }) => {
@@ -47,7 +48,7 @@ const RestaurantDetails = ({ match, handleOutsideClick }) => {
   }
 
   if (isLoading) {
-    return <div>Loading!</div>;
+    return <Loading />;
   }
 
   return (
