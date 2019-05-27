@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import { useSpring, animated } from 'react-spring';
+
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -209,6 +211,12 @@ const SearchBar = ({
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
 
+  const springProps = useSpring({
+    to: { opacity: 1, transform: `scale(1)` },
+    from: { opacity: 0, transform: `scale(0.75)` },
+    config: { duration: 250 }
+  });
+
   const locationSuccess = position => {
     setLat(position.coords.latitude);
     setLon(position.coords.longitude);
@@ -251,7 +259,9 @@ const SearchBar = ({
       onClick={handleOutsideClick}
     >
       <Link to="/">
-        <h1 className="title">Chow Now</h1>
+        <animated.h1 style={springProps} className="title">
+          Chow Now
+        </animated.h1>
       </Link>
       <form className="search-form" onSubmit={e => e.preventDefault()}>
         <div className="input-food-container">
