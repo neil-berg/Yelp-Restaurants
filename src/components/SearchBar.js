@@ -81,7 +81,7 @@ const Header = styled.header`
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 138px;
+    top: 140px;
     width: 100%;
     background: white;
     z-index: 2;
@@ -94,7 +94,6 @@ const Header = styled.header`
 
     li.food-item,
     li.user-location-item {
-      //border-bottom: 1px lightgrey solid;
       padding: 0.5rem 1rem;
     }
 
@@ -109,7 +108,7 @@ const Header = styled.header`
   }
 
   ul.user-location-list {
-    top: 94px;
+    top: 96px;
   }
 
   .food-list {

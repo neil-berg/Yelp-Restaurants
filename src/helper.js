@@ -1,13 +1,13 @@
-import zeroStars from './assets/regular_0@3x.png';
-import oneStars from './assets/regular_1@3x.png';
-import oneHalfStars from './assets/regular_1_half@3x.png';
-import twoStars from './assets/regular_3@3x.png';
-import twoHalfStars from './assets/regular_2_half@3x.png';
-import threeStars from './assets/regular_3@3x.png';
-import threeHalfStars from './assets/regular_3_half@3x.png';
-import fourStars from './assets/regular_4@3x.png';
-import fourHalfStars from './assets/regular_4_half@3x.png';
-import fiveStars from './assets/regular_5@3x.png';
+import zeroStars from './assets/yelp-icons/regular_0@3x.png';
+import oneStars from './assets/yelp-icons/regular_1@3x.png';
+import oneHalfStars from './assets/yelp-icons/regular_1_half@3x.png';
+import twoStars from './assets/yelp-icons/regular_3@3x.png';
+import twoHalfStars from './assets/yelp-icons/regular_2_half@3x.png';
+import threeStars from './assets/yelp-icons/regular_3@3x.png';
+import threeHalfStars from './assets/yelp-icons/regular_3_half@3x.png';
+import fourStars from './assets/yelp-icons/regular_4@3x.png';
+import fourHalfStars from './assets/yelp-icons/regular_4_half@3x.png';
+import fiveStars from './assets/yelp-icons/regular_5@3x.png';
 
 // Create URL whenever a valid search form is submitted
 // This URL is this used to fetch restaurants in RestaurantList

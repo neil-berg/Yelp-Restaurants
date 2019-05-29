@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { animated, useSpring } from 'react-spring';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
-import yelpLogo from '../assets/Yelp_trademark_RGB.png';
+import yelpLogo from '../assets/yelp-icons/Yelp_trademark_RGB.png';
 
 import { distanceInMiles, getStars } from '../helper';
 
-const Card = styled.div`
+const Card = styled(animated.div)`
   padding: 1rem 0 0 0;
   margin: 0 1rem;
   border-bottom: 1px lightgrey solid;
@@ -154,17 +155,33 @@ const CoverPhoto = styled.div`
   }
 `;
 
-const RestaurantCard = ({ restaurant }) => {
+const RestaurantCard = ({ index, restaurant }) => {
   const categories = restaurant.categories
     .map(category => category.title)
     .join(', ');
 
+  // const spring = useSpring({
+  //   to: { opacity: '1' },
+  //   from: { opacity: '0' },
+  //   delay: `${index * 150}`,
+  //   config: { duration: 500 }
+  // });
+  const spring = useSpring({
+    to: { marginTop: '0' },
+    from: { marginTop: '100px' }
+  });
+
   return (
-    <Card>
+    <Card style={spring}>
       <CoverPhoto image_url={restaurant.image_url} />
       <div className="info-small">
         <Link to={`/restaurant/${restaurant.alias}/${restaurant.id}`}>
-          <p className="name">{restaurant.name}</p>
+          <p className="name">
+            <span className="restaurant-index" style={{ color: 'black' }}>
+              {index + 1}.{' '}
+            </span>
+            {restaurant.name}
+          </p>
         </Link>
         <p className="rating-price">
           <img
@@ -199,7 +216,12 @@ const RestaurantCard = ({ restaurant }) => {
             className="restaurant-link"
             to={`/restaurant/${restaurant.alias}/${restaurant.id}`}
           >
-            <p className="name">{restaurant.name}</p>
+            <p className="name">
+              <span className="restaurant-index" style={{ color: 'black' }}>
+                {index + 1}.{' '}
+              </span>
+              {restaurant.name}
+            </p>
           </Link>
           <p className="rating-count">
             <img

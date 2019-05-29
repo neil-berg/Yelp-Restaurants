@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { animated, useSprings } from 'react-spring';
 
-import { ReactComponent as SushiSVG } from '../assets/sushi.svg';
-import { ReactComponent as TacosSVG } from '../assets/taco.svg';
-import { ReactComponent as PizzaSVG } from '../assets/pizza.svg';
-import { ReactComponent as PastaSVG } from '../assets/pasta.svg';
-import { ReactComponent as ThaiSVG } from '../assets/curry.svg';
-import { ReactComponent as AmericanSVG } from '../assets/burger.svg';
-import { ReactComponent as MediSVG } from '../assets/pita.svg';
-import { ReactComponent as FrenchSVG } from '../assets/chicken.svg';
-import { ReactComponent as BbqSVG } from '../assets/ribs.svg';
-import { ReactComponent as VeganSVG } from '../assets/vegetables.svg';
-import { ReactComponent as WafflesSVG } from '../assets/waffle.svg';
-import { ReactComponent as DessertSVG } from '../assets/dessert.svg';
+import { ReactComponent as SushiSVG } from '../assets/food-icons/sushi.svg';
+import { ReactComponent as TacosSVG } from '../assets/food-icons/taco.svg';
+import { ReactComponent as PizzaSVG } from '../assets/food-icons/pizza.svg';
+import { ReactComponent as PastaSVG } from '../assets/food-icons/pasta.svg';
+import { ReactComponent as ThaiSVG } from '../assets/food-icons/curry.svg';
+import { ReactComponent as AmericanSVG } from '../assets/food-icons/burger.svg';
+import { ReactComponent as MediSVG } from '../assets/food-icons/pita.svg';
+import { ReactComponent as FrenchSVG } from '../assets/food-icons/chicken.svg';
+import { ReactComponent as BbqSVG } from '../assets/food-icons/ribs.svg';
+import { ReactComponent as VeganSVG } from '../assets/food-icons/vegetables.svg';
+import { ReactComponent as WafflesSVG } from '../assets/food-icons/waffle.svg';
+import { ReactComponent as DessertSVG } from '../assets/food-icons/dessert.svg';
 
 const Container = styled.div`
   display: grid;
@@ -80,20 +81,28 @@ const Home = ({ setInputFood, handleOutsideClick }) => {
     dessert: <DessertSVG />
   };
 
+  const [springs] = useSprings(Object.keys(options).length, i => ({
+    to: { opacity: 1 },
+    from: { opacity: 0 },
+    delay: `${i * 50}`,
+    config: { friction: 100 }
+  }));
+
   const renderOptionList = Object.keys(options).map((option, i) => {
     const uppercaseOption =
       option === 'bbq'
         ? option.toUpperCase()
         : option.slice(0, 1).toUpperCase() + option.slice(1);
     return (
-      <div
+      <animated.div
         key={i}
         className="option"
         onClick={() => setInputFood(uppercaseOption)}
+        style={springs[i]}
       >
         {options[option]}
         <span className="name">{uppercaseOption}</span>
-      </div>
+      </animated.div>
     );
   });
 

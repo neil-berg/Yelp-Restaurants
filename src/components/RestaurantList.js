@@ -100,9 +100,9 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
       </div>
       <main className="results">
         <ul className="results-list">
-          {restaurants.map(restaurant => (
+          {restaurants.map((restaurant, i) => (
             <li key={restaurant.id}>
-              <RestaurantCard restaurant={restaurant} />
+              <RestaurantCard index={i} restaurant={restaurant} />
             </li>
           ))}
         </ul>

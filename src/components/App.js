@@ -64,7 +64,7 @@ const App = () => {
             )}
           />
         </Switch>
-        <Footer />
+        <Footer handleOutsideClick={handleOutsideClick} />
       </Router>
     </div>
   );

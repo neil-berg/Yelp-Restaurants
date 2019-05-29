@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 
 import { getMapCenter, distanceInMiles, getStars } from '../helper';
+
+export const customIcon = i =>
+  new L.Icon({
+    iconUrl: require(`../assets/marker-icons/number_${i}.png`),
+    iconSize: [35, 45]
+  });
 
 const AddressMap = ({ restaurants }) => {
   const [centerLat, centerLon] = getMapCenter(restaurants);
@@ -15,6 +22,7 @@ const AddressMap = ({ restaurants }) => {
           restaurant.coordinates.latitude,
           restaurant.coordinates.longitude
         ]}
+        icon={customIcon(i + 1)}
       >
         <Popup>
           <Link to={`/restaurant/${restaurant.alias}/${restaurant.id}`}>
@@ -38,7 +46,7 @@ const AddressMap = ({ restaurants }) => {
   return (
     <Map
       center={[centerLat || 25, centerLon || -120]}
-      zoom={12}
+      zoom={10}
       maxZoom={15}
       attributionControl={true}
       zoomControl={true}
