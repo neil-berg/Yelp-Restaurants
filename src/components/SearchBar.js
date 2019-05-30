@@ -224,8 +224,9 @@ const SearchBar = ({
   };
 
   const locationError = err => {
-    console.error(`ERROR(${err.code}): ${err.message}`);
+    setInputLocation('Error finding location, try a new spot.');
     setIsLoadingLocation(false);
+    //console.log(err.message)
   };
 
   const handleUserLocationClick = e => {
@@ -247,7 +248,7 @@ const SearchBar = ({
       setFocus(null);
       history.push(searchSlug);
     } else {
-      // Display errors
+      // TODO: Potentially display error message
     }
   };
 

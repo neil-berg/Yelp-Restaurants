@@ -5,6 +5,7 @@ import Loading from './Loading';
 import Error from './Error';
 import RestaurantCard from './RestaurantCard';
 import AddressMap from './AddressMap';
+import Pagination from './Pagination';
 
 import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
@@ -46,7 +47,7 @@ const Wrapper = styled.div`
 `;
 
 const RestaurantList = ({ match, handleOutsideClick }) => {
-  const [term, location, latitude, longitude] = parseSearchParams(match);
+  const [term, location, latitude, longitude, page] = parseSearchParams(match);
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -65,7 +66,8 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
             term: term,
             location: location,
             latitude: latitude,
-            longitude: longitude
+            longitude: longitude,
+            offset: `${page * 20}`
           }
         });
         setRestaurants(response.data.businesses);
@@ -75,7 +77,7 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
       setIsLoading(false);
     };
     fetchData();
-  }, [term, location, latitude, longitude]);
+  }, [term, location, latitude, longitude, page]);
 
   useEffect(() => window.addEventListener('scroll', handleScroll), []);
 
@@ -93,6 +95,10 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
     return <Loading />;
   }
 
+  if (restaurants.length === 0) {
+    return <div>Oops, no results found! Try another search.</div>;
+  }
+
   return (
     <Wrapper scrollY={scrollY} onClick={handleOutsideClick}>
       <div className="map-sidebar">
@@ -107,6 +113,7 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
           ))}
         </ul>
       </main>
+      <Pagination />
     </Wrapper>
   );
 };

@@ -41,7 +41,7 @@ const App = () => {
             )}
           />
           <Route
-            path="/search/:termID/:locID"
+            path="/search/:termID/:locID/:pageID"
             render={props => (
               <RestaurantList
                 {...props}

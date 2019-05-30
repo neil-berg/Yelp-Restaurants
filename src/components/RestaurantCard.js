@@ -160,16 +160,16 @@ const RestaurantCard = ({ index, restaurant }) => {
     .map(category => category.title)
     .join(', ');
 
-  // const spring = useSpring({
-  //   to: { opacity: '1' },
-  //   from: { opacity: '0' },
-  //   delay: `${index * 150}`,
-  //   config: { duration: 500 }
-  // });
   const spring = useSpring({
-    to: { marginTop: '0' },
-    from: { marginTop: '100px' }
+    to: { opacity: '1' },
+    from: { opacity: '0' },
+    config: { duration: 400 }
   });
+
+  // const spring = useSpring({
+  //   to: { marginTop: '0' },
+  //   from: { marginTop: '100px' }
+  // });
 
   return (
     <Card style={spring}>

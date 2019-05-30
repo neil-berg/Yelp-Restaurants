@@ -11,6 +11,7 @@ import fiveStars from './assets/yelp-icons/regular_5@3x.png';
 
 // Create URL whenever a valid search form is submitted
 // This URL is this used to fetch restaurants in RestaurantList
+// Default 1st page of results
 export const createSearchSlug = (inputFood, inputLocation, lat, lon) => {
   const term = inputFood
     .toLowerCase()
@@ -29,17 +30,18 @@ export const createSearchSlug = (inputFood, inputLocation, lat, lon) => {
       .split(' ')
       .join('+')}`;
   }
-  return `/search/${term}/${loc}`;
+  return `/search/${term}/${loc}/page=1`;
 };
 
 // Given a React Router prop of "match", parse necessary search
 // parameters for Yelp Fusion calls. Search params include term, location
-// latitude, and longitude.
+// latitude, longitude, and offset (by page number)
 export const parseSearchParams = match => {
   // Parse search term and location or coordinates from URL
-  const { termID, locID } = match.params;
-
+  const { termID, locID, pageID } = match.params;
   const term = termID;
+  const page = pageID.replace(/page=/, '');
+
   let location = null;
   let latitude = null;
   let longitude = null;
@@ -53,7 +55,7 @@ export const parseSearchParams = match => {
     longitude = lonStr.replace(/lon=/, '');
   }
 
-  return [term, location, latitude, longitude];
+  return [term, location, latitude, longitude, page];
 };
 
 // Convert disance from meters to miles
