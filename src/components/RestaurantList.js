@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Loading from './Loading';
 import Error from './Error';
+import NoResults from './NoResults';
 import RestaurantCard from './RestaurantCard';
 import AddressMap from './AddressMap';
 import Pagination from './Pagination';
@@ -96,7 +97,7 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
   }
 
   if (restaurants.length === 0) {
-    return <div>Oops, no results found! Try another search.</div>;
+    return <NoResults />;
   }
 
   return (
