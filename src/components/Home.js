@@ -15,7 +15,7 @@ import { ReactComponent as VeganSVG } from '../assets/food-icons/vegetables.svg'
 import { ReactComponent as WafflesSVG } from '../assets/food-icons/waffle.svg';
 import { ReactComponent as DessertSVG } from '../assets/food-icons/dessert.svg';
 
-const Container = styled.div`
+const HomeWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 160px);
   grid-gap: 1em;
@@ -29,56 +29,55 @@ const Container = styled.div`
     width: 160px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+  }
 
-    svg {
-      width: 120px;
-      height: 120px;
-      margin: 1rem;
-    }
+  .option__icon {
+    width: 120px;
+    height: 120px;
+    margin: 1rem;
+  }
 
-    .name {
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5em;
-    }
+  .option__name {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5em;
   }
 
   @media screen and (min-width: 500px) {
     grid-template-columns: repeat(auto-fit, 200px);
     .option {
       width: 200px;
+    }
 
-      svg {
-        width: 180px;
-        height: 180x;
-      }
+    .option__icon {
+      width: 180px;
+      height: 180x;
     }
   }
   @media (hover: hover) {
     .option:hover {
       background: var(--red);
-
-      .name {
-        color: white;
-      }
+    }
+    .option:hover .option__name {
+      color: white;
     }
   }
 `;
 
 const Home = ({ setInputFood, handleOutsideClick }) => {
   const options = {
-    sushi: <SushiSVG />,
-    tacos: <TacosSVG />,
-    pizza: <PizzaSVG />,
-    pasta: <PastaSVG />,
-    thai: <ThaiSVG />,
-    american: <AmericanSVG />,
-    mediterranean: <MediSVG />,
-    french: <FrenchSVG />,
-    bbq: <BbqSVG />,
-    vegan: <VeganSVG />,
-    waffles: <WafflesSVG />,
-    dessert: <DessertSVG />
+    sushi: <SushiSVG className="option__icon" />,
+    tacos: <TacosSVG className="option__icon" />,
+    pizza: <PizzaSVG className="option__icon" />,
+    pasta: <PastaSVG className="option__icon" />,
+    thai: <ThaiSVG className="option__icon" />,
+    american: <AmericanSVG className="option__icon" />,
+    mediterranean: <MediSVG className="option__icon" />,
+    french: <FrenchSVG className="option__icon" />,
+    bbq: <BbqSVG className="option__icon" />,
+    vegan: <VeganSVG className="option__icon" />,
+    waffles: <WafflesSVG className="option__icon" />,
+    dessert: <DessertSVG className="option__icon" />
   };
 
   const [springs] = useSprings(Object.keys(options).length, i => ({
@@ -101,12 +100,14 @@ const Home = ({ setInputFood, handleOutsideClick }) => {
         style={springs[i]}
       >
         {options[option]}
-        <span className="name">{uppercaseOption}</span>
+        <span className="option__name">{uppercaseOption}</span>
       </animated.div>
     );
   });
 
-  return <Container onClick={handleOutsideClick}>{renderOptionList}</Container>;
+  return (
+    <HomeWrapper onClick={handleOutsideClick}>{renderOptionList}</HomeWrapper>
+  );
 };
 
 export default Home;
