@@ -10,24 +10,24 @@ const ErrorWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  .warning-text {
+  .error__text {
     text-align: center;
     font-size: 1.2em;
   }
 
-  .warning {
+  .error__icon {
     height: 50vh;
     margin: 1rem auto;
   }
 `;
 
 const Error = () => (
-  <ErrorWrapper>
-    <p className="warning-text">
+  <ErrorWrapper className="error">
+    <p className="error__text">
       Hm, an error occured with this search. Try another one!
     </p>
 
-    <Warning className="warning" />
+    <Warning className="error__icon" />
   </ErrorWrapper>
 );
 
