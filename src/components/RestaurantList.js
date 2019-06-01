@@ -96,7 +96,7 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
     return <Loading />;
   }
 
-  if (restaurants.length === 0) {
+  if (!isLoading && restaurants.length === 0) {
     return <NoResults />;
   }
 

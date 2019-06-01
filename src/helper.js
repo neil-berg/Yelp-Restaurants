@@ -89,3 +89,61 @@ export const getStars = restaurant => {
 
   return ratingToStars[restaurant.rating];
 };
+
+// Retrieve info on whether restuarant is currently open or closed
+export const isOpenNow = details => {
+  try {
+    return details.hours[0].is_open_now;
+  } catch (err) {
+    return null;
+  }
+};
+
+// Format open hours to produce an object with weekdays as
+// keys and values as an array storing all open/close times per day
+export const getOpenHours = details => {
+  let formattedHours = {
+    Monday: [],
+    Tuesday: [],
+    Wednesday: [],
+    Thursday: [],
+    Friday: [],
+    Saturday: [],
+    Sunday: []
+  };
+
+  const idxToDay = {
+    0: 'Monday',
+    1: 'Tuesday',
+    2: 'Wednesday',
+    3: 'Thursday',
+    4: 'Friday',
+    5: 'Saturday',
+    6: 'Sunday'
+  };
+
+  const formatTime = time => {
+    const hours = Number(time.slice(0, 2));
+    const mins = time.slice(2, 4);
+    if (hours === 0) {
+      return 'MIDNIGHT';
+    } else if (hours > 12) {
+      return `${hours - 12}:${mins}PM`;
+    } else {
+      return `${hours}:${mins}AM`;
+    }
+  };
+
+  try {
+    const hoursArr = details.hours[0].open;
+    hoursArr.forEach(item => {
+      const day = idxToDay[item.day];
+      const start = formatTime(item.start);
+      const end = formatTime(item.end);
+      formattedHours[day].push(`${start} - ${end}`);
+    });
+  } catch (err) {
+    return null;
+  }
+  return formattedHours;
+};
