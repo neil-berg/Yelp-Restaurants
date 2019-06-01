@@ -14,38 +14,55 @@ const ReviewsWrapper = styled.section`
     width: 325px;
     border: 1px lightgrey solid;
     border-radius: 5px;
+    padding: 1rem;
   }
 
-  .review-card__avatar {
+  .review-card__row1,
+  .review-card__row2 {
+    display: flex;
+    align-items: center;
+  }
+  .row1-avatar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+  }
+  .row1-name {
+    margin-left: 1em;
+  }
+
+  .row2-stars {
+    width: 100px;
+    height: auto;
+    margin: 1em 0;
+  }
+
+  .row2-date {
+    margin-left: 1rem;
   }
 `;
 
 const DetailsReviews = ({ reviews }) => {
   const renderReviewList = reviews.map((review, i) => (
-    <div className="review-card">
-      <div className="review-card__user">
+    <div className="review-card" key={i}>
+      <div className="review-card__row1">
         <img
-          className="user-avatar"
+          className="row1-avatar"
           src={review.user.image_url}
           alt="Reviewer avatar"
         />
-        <div>
-          <p className="user-name">{review.user.name}</p>
-          <p className="user-date">May 31, 2019</p>
-          <img
-            className="user-rating"
-            src={getStars(review)}
-            alt="star rating"
-          />
-        </div>
+        <p className="row1-name">{review.user.name}</p>
       </div>
-      <p className="review-card__text">{review.text}</p>
-      <a href={review.url} className="reivew-card__link">
-        Read full review
-      </a>
+      <div className="review-card__row2">
+        <img className="row2-stars" src={getStars(review)} alt="star rating" />
+        <p className="row2-date">June 1, 2019</p>
+      </div>
+      <div className="review-card__row3">
+        <p className="review-card__text">{review.text}</p>
+        <a href={review.url} className="reivew-card__link">
+          Read full review
+        </a>
+      </div>
     </div>
   ));
   return (
