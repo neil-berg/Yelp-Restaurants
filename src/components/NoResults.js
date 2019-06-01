@@ -10,24 +10,24 @@ const NoResultsWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  .noresults-text {
+  .noresults__text {
     text-align: center;
     font-size: 1.2em;
   }
 
-  .donut {
+  .noresults__icon {
     height: 50vh;
     margin: 1rem auto;
   }
 `;
 
 const NoResults = () => (
-  <NoResultsWrapper>
-    <p className="noresults-text">
+  <NoResultsWrapper className="noresults">
+    <p className="noresults__text">
       Hm, no results found for this search. Try another one!
     </p>
 
-    <Donut className="donut" />
+    <Donut className="noresults__icon" />
   </NoResultsWrapper>
 );
 
