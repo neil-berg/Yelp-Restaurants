@@ -8,7 +8,8 @@ const PageWrapper = styled.div`
   justify-content: center;
   margin: 1rem;
 
-  .link-container {
+  .page-container__page--selected,
+  .page-container__page--unselected {
     width: 35px;
     height: 35px;
     margin: 0.5rem;
@@ -17,22 +18,22 @@ const PageWrapper = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-
-    .link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      width: 100%;
-    }
   }
 
-  .link-container.selected {
+  .page-container__page--selected {
     background: var(--red);
+  }
 
-    .link {
-      color: white;
-    }
+  .page-container__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .page-container__page--selected .page-container__link {
+    color: white;
   }
 `;
 
@@ -43,15 +44,17 @@ const Pagination = ({ location }) => {
     return (
       <div
         key={number}
-        className={`link-container ${number + 1 === page ? 'selected' : null}`}
+        className={`page-container__page--${
+          number + 1 === page ? 'selected' : 'unselected'
+        }`}
       >
-        <Link to={slug} className="link">
+        <Link to={slug} className="page-container__link">
           {number + 1}
         </Link>
       </div>
     );
   });
-  return <PageWrapper>{renderPages}</PageWrapper>;
+  return <PageWrapper className="page-container">{renderPages}</PageWrapper>;
 };
 
 export default withRouter(Pagination);
