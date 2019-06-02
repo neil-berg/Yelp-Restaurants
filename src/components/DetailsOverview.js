@@ -9,44 +9,44 @@ const OverviewWrapper = styled.div`
   max-width: 600px;
   margin: 0 auto;
 
-  .overview-row1,
-  .overview-row2 {
+  .overview__name-price,
+  .overview__reviews {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  .row1-name {
+  .overview__name {
     margin: 0;
     font-size: 1.5em;
     font-weight: bold;
     font-family: 'Karla', sans-serif;
   }
 
-  .row1-price {
+  .overview__price {
     margin: 0;
   }
 
-  .row2-rating {
+  .overview__rating {
     display: flex;
     align-items: center;
   }
 
-  .row2-stars {
+  .overview__stars {
     width: 100px;
     height: auto;
   }
-  .row2-count {
+  .overivew__count {
     color: grey;
     padding-left: 0.5rem;
     font-size: 0.9em;
   }
 
-  .row2-yelp-link {
+  .overview__link-yelp {
     display: inline-block;
   }
 
-  .row2-yelp-logo {
+  .overview__icon-yelp {
     width: 75px;
     height: auto;
   }
@@ -55,26 +55,28 @@ const OverviewWrapper = styled.div`
 const DetailsOverview = ({ details }) => {
   return (
     <OverviewWrapper>
-      <div className="overview-row1">
-        <p className="row1-name">{details.name}</p>
-        <p className="row1-price">{details.price}</p>
+      <div className="overview__name-price">
+        <p className="overview__name">{details.name}</p>
+        <p className="overview__price">{details.price}</p>
       </div>
-      <div className="overview-row2">
-        <p className="row2-rating">
+      <div className="overview__reviews">
+        <p className="overview__rating">
           <img
-            className="row2-stars"
+            className="overview__stars"
             src={getStars(details)}
             alt="star rating"
           />
-          <span className="row2-count">{details.review_count} reviews</span>
+          <span className="overview__count">
+            {details.review_count} reviews
+          </span>
         </p>
         <a
           href={details.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="row2-yelp-link"
+          className="overview__link-yelp"
         >
-          <img className="row2-yelp-logo" src={yelpLogo} alt="logo" />
+          <img className="overview__icon-yelp" src={yelpLogo} alt="logo" />
         </a>
       </div>
     </OverviewWrapper>
