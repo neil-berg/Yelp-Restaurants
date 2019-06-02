@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { getStars } from '../helper';
-import ReviewCard from './ReviewCard';
 
 const ReviewsWrapper = styled.section`
   display: grid;

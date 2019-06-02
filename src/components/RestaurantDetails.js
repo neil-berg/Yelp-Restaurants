@@ -9,8 +9,6 @@ import Error from './Error';
 import Loading from './Loading';
 import yelpapi from '../apis/yelpapi';
 
-import yelpLogo from '../assets/yelp-icons/Yelp_trademark_RGB.png';
-
 const DetailsWrapper = styled.div`
   .leaflet-container {
     width: 325px;

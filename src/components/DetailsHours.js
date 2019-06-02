@@ -14,19 +14,19 @@ const HoursWrapper = styled.div`
   max-width: 600px;
   margin: 0 auto;
 
-  .open-now {
+  .hours__current-status {
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
   }
 
-  .clock-icon {
+  .hours__current-status-icon {
     margin-right: 0.5rem;
     font-size: 1.2em;
   }
 
-  .btn-reveal-list {
+  .hours__button {
     padding: 0.5rem;
     margin: 1rem 0;
     background: transparent;
@@ -34,33 +34,33 @@ const HoursWrapper = styled.div`
     border-radius: 5px;
   }
 
-  .btn-text-container {
+  .hours__button-container {
     display: flex;
     align-items: center;
-
-    .btn-text {
-      padding-right: 0.5rem;
-    }
   }
 
-  .hours-list {
+  .hours__button-text {
+    padding-right: 0.5rem;
+  }
+
+  .hours__list--open, .hours__list--closed {
     margin: 0;
     padding: 0;
     transition: all 0.35s ease-in-out;
   }
 
-  .hours-list.open {
+  .hours__list--open {
     height: 100%:
     opacity: 1;
   }
 
-  .hours-list.closed {
+  .hours__list--closed {
     height: 0;
     opacity: 0;
     overflow-y: hidden;
   }
 
-  .day {
+  .hours__item {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -69,85 +69,91 @@ const HoursWrapper = styled.div`
     padding: 0.5em 0;
   }
 
-  .day-name {
+  .hours__left-col {
     padding: 0;
     margin: 0;
   }
 
-  .hours-container {
+  .hours__right-col {
     min-width: 130px;
     font-size: 0.85em;
     padding: 0;
     margin: 0;
   }
 
-  .hours {
+  .hours__right-col-times {
     text-align: right;
     padding: 0;
     margin: 0;
   }
 
-  .hours:first-child {
+  .hours__right-col-times:first-child {
     padding-bottom: 1em;
   }
 
-  .hours.closed {
+  .hours__right-col-closed {
     padding-top: 0;
   }
 `;
 
 const DetailsHours = ({ details }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const openHours = getOpenHours(details);
   const renderHoursList = hoursObj => {
     return Object.keys(hoursObj).map((day, i) => (
-      <li key={i} className="day">
-        <p className="day-name">{day}</p>
-        <div className="hours-container">
+      <li key={i} className="hours__item">
+        <p className="hours__left-col">{day}</p>
+        <div className="hours__right-col">
           {hoursObj[day].length > 0 ? (
             hoursObj[day].map((timestamp, j) => (
-              <p key={j} className="hours">
+              <p key={j} className="hours__right-col-times">
                 {timestamp}
               </p>
             ))
           ) : (
-            <p className="hours closed">CLOSED</p>
+            <p className="hours__right-col-closed">CLOSED</p>
           )}
         </div>
       </li>
     ));
   };
   return (
-    <HoursWrapper>
-      <div className="open-now">
+    <HoursWrapper className="hours">
+      <div className="hours__current-status">
         <FontAwesomeIcon
-          className="clock-icon"
+          className="hours__current-status-icon"
           icon={faClock}
           color={isOpenNow(details) ? 'green' : 'red'}
         />
-        <p className="open-now">
+        <p className="hours__current-status-text">
           {isOpenNow(details) ? 'Open Now' : 'Closed Now'}
         </p>
       </div>
 
       <button
-        className="btn-reveal-list"
+        className="hours__button"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         {isMenuOpen ? (
-          <div className="btn-text-container">
-            <span className="btn-text">Hide hours</span>
-            <FontAwesomeIcon icon={faAngleDoubleDown} />
+          <div className="hours__button-container">
+            <span className="hours__button-text">Hide hours</span>
+            <FontAwesomeIcon
+              className="hours__button-icon"
+              icon={faAngleDoubleDown}
+            />
           </div>
         ) : (
-          <div className="btn-text-container">
-            <span className="btn-text">Show all hours</span>
-            <FontAwesomeIcon icon={faAngleDoubleRight} />
+          <div className="hours__button-container">
+            <span className="hours__button-text">Show all hours</span>
+            <FontAwesomeIcon
+              className="hours__button-icon"
+              icon={faAngleDoubleRight}
+            />
           </div>
         )}
       </button>
-      <ul className={`hours-list ${isMenuOpen ? 'open' : 'closed'}`}>
+      <ul className={`hours__list--${isMenuOpen ? 'open' : 'closed'}`}>
         {openHours ? renderHoursList(openHours) : null}
       </ul>
     </HoursWrapper>

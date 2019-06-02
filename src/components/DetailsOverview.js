@@ -36,7 +36,7 @@ const OverviewWrapper = styled.div`
     width: 100px;
     height: auto;
   }
-  .overivew__count {
+  .overview__count {
     color: grey;
     padding-left: 0.5rem;
     font-size: 0.9em;
