@@ -8,6 +8,7 @@ import threeHalfStars from './assets/yelp-icons/regular_3_half@3x.png';
 import fourStars from './assets/yelp-icons/regular_4@3x.png';
 import fourHalfStars from './assets/yelp-icons/regular_4_half@3x.png';
 import fiveStars from './assets/yelp-icons/regular_5@3x.png';
+import moment from 'moment';
 
 // Create URL whenever a valid search form is submitted
 // This URL is this used to fetch restaurants in RestaurantList
@@ -147,3 +148,8 @@ export const getOpenHours = details => {
   }
   return formattedHours;
 };
+
+// Format date of reviews into Month, Day Year
+// Input format: "2019-05-26 18:54:30"
+export const formatReviewDate = date =>
+  moment(date, 'YYYY-MM-DD HH:mm:ss').format('MMM D, YYYY');
