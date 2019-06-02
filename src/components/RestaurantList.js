@@ -11,7 +11,9 @@ import Pagination from './Pagination';
 import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
 
-const Wrapper = styled.div`
+const ResultsWrapper = styled.section`
+  background: #f2e8e6;
+
   .leaflet-container {
     width: 325px;
     height: 325px;
@@ -19,11 +21,9 @@ const Wrapper = styled.div`
     z-index: 1;
   }
 
-  .results {
-    .results-list {
-      margin: 0 auto;
-      padding: 0;
-    }
+  .results__list {
+    margin: 0;
+    padding: 0;
   }
 
   @media screen and (min-width: 935px) {
@@ -33,29 +33,28 @@ const Wrapper = styled.div`
       margin-left: 1rem;
     }
 
-    .map-sidebar {
+    .map-container {
       position: ${props => (props.scrollY < '235' ? 'absolute' : 'fixed')};
       top: 0;
       left: 0;
       height: 100%;
-      width: 325px;
+      width: 350px;
     }
 
     .results {
-      margin-left: calc(325px + 2rem);
+      margin-left: calc(325px + 1rem);
     }
   }
 `;
 
 const RestaurantList = ({ match, handleOutsideClick }) => {
+  // Sync URL and UI through URL parameters
   const [term, location, latitude, longitude, page] = parseSearchParams(match);
+
+  // State and effects for fetching the searched restaurants
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-
-  const handleScroll = () => setScrollY(window.scrollY);
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -80,6 +79,11 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
     fetchData();
   }, [term, location, latitude, longitude, page]);
 
+  // State and effects for tracking vertical scroll
+  // to control positioning of the address map
+  const [scrollY, setScrollY] = useState(0);
+  const handleScroll = () => setScrollY(window.scrollY);
+
   useEffect(() => window.addEventListener('scroll', handleScroll), []);
 
   useEffect(() => {
@@ -101,21 +105,25 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
   }
 
   return (
-    <Wrapper scrollY={scrollY} onClick={handleOutsideClick}>
-      <div className="map-sidebar">
+    <ResultsWrapper scrollY={scrollY} onClick={handleOutsideClick}>
+      <div className="map-container">
         <AddressMap restaurants={restaurants} />
       </div>
-      <main className="results">
-        <ul className="results-list">
+      <section className="results">
+        <ul className="results__list">
           {restaurants.map((restaurant, i) => (
-            <li key={restaurant.id}>
-              <RestaurantCard index={i} restaurant={restaurant} />
+            <li key={restaurant.id} className="results__item">
+              <RestaurantCard
+                className="results__card"
+                index={i}
+                restaurant={restaurant}
+              />
             </li>
           ))}
         </ul>
-      </main>
+      </section>
       <Pagination />
-    </Wrapper>
+    </ResultsWrapper>
   );
 };
 
