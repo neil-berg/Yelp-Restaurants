@@ -17,126 +17,124 @@ const Card = styled(animated.div)`
   flex-direction: column;
   max-width: 800px;
 
-  .info-small {
+  .card__info--small {
     padding: 0.5rem 0.5rem 0 0.5rem;
-    > p {
-      margin: 0;
-      padding: 0;
-    }
-    .name {
-      font-size: 1.25em;
-      font-weight: bold;
-      font-family: 'Karla', sans-serif;
-      margin: 0;
-      padding: 0;
-      color: var(--red);
-    }
-    .rating-price {
-      padding-top: 1rem;
-      display: flex;
-      align-items: center;
-      .rating {
-        width: 100px;
-        height: auto;
-      }
-      .price {
-        color: grey;
-        margin-left: 1rem;
-      }
-    }
-    .distance-address-logo {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: grey;
-      .icon-circle {
-        margin: 0 0.5rem;
-        font-size: 6px;
-        color: lightgrey;
-      }
-    }
   }
 
-  .yelp-logo {
+  .card__name {
+    font-size: 1.25em;
+    font-weight: bold;
+    font-family: 'Karla', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--red);
+  }
+
+  .card__index {
+    color: black;
+  }
+
+  .card__stars-price {
+    padding-top: 1rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .card__stars {
+    width: 100px;
+    height: auto;
+  }
+
+  .card__price {
+    margin-left: 1rem;
+  }
+
+  .card__distance-address-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card__distance-address {
+    display: flex;
+    align-items: center;
+  }
+
+  .card__icon-circle {
+    margin: 0 0.5rem;
+    font-size: 6px;
+    color: grey;
+  }
+
+  .card__icon-yelp {
     width: 75px;
     height: auto;
   }
 
-  .info-large {
+  .card__info--large {
     display: none;
     width: 100%;
     padding: 0.5rem;
-    .left {
-      flex: 1;
+  }
 
-      .restaurant-link .name {
-        font-size: 1.25em;
-        font-weight: bold;
-        font-family: 'Karla', sans-serif;
-        margin: 0;
-        padding: 0;
-        color: var(--red);
-      }
+  .card__left-col {
+    flex: 1;
+  }
 
-      .rating-count {
-        display: flex;
-        align-items: center;
-      }
+  .card__stars-count {
+    display: flex;
+    align-items: center;
+  }
 
-      .rating-count .rating {
-        width: 100px;
-        height: auto;
-      }
-      .rating-count .count {
-        color: grey;
-        padding-left: 0.5rem;
-        font-size: 0.9em;
-      }
-    }
-    .right {
-      flex: 1;
-      text-align: right;
-      > p,
-      span {
-        padding: 0;
-        margin: 0;
-      }
-      .price-distance {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        color: grey;
+  .card__count {
+    color: grey;
+    padding-left: 0.5rem;
+    font-size: 0.9em;
+  }
 
-        .icon-circle {
-          margin: 0 0.5rem;
-          font-size: 6px;
-          color: lightgrey;
-        }
-      }
+  .card__right-col {
+    flex: 1;
+    text-align: right;
+  }
 
-      .zipcode {
-        padding-left: 0.35rem;
-      }
+  .card__price-distance {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+  }
 
-      .phone {
-        padding: 0.75rem 0;
-      }
-    }
+  .card__address {
+    margin: 0;
+    padding: 0;
+  }
 
-    .categories .category {
-      padding-right: 0.5rem;
-    }
+  .card__zipcode {
+    margin-left: 0.35rem;
+  }
+
+  .card__icon-circle {
+    margin: 0 0.5rem;
+    font-size: 6px;
+    color: grey;
+  }
+
+  .card__phone {
+    padding: 0.75rem 0;
+    margin: 0;
   }
 
   @media screen and (min-width: 600px) {
     flex-direction: row;
     padding: 1rem 0;
 
-    .info-large {
+    .card__info--large {
       display: flex;
     }
 
-    .info-small {
+    .card__info--small {
       display: none;
     }
   }
@@ -172,88 +170,97 @@ const RestaurantCard = ({ index, restaurant }) => {
   // });
 
   return (
-    <Card style={spring}>
-      <CoverPhoto image_url={restaurant.image_url} />
-      <div className="info-small">
-        <Link to={`/restaurant/${restaurant.alias}/${restaurant.id}`}>
-          <p className="name">
-            <span className="restaurant-index" style={{ color: 'black' }}>
-              {index + 1}.{' '}
-            </span>
+    <Card className="card" style={spring}>
+      <CoverPhoto
+        className="card__cover-photo"
+        image_url={restaurant.image_url}
+      />
+      <div className="card__info--small">
+        <Link
+          className="card__details-link"
+          to={`/restaurant/${restaurant.alias}/${restaurant.id}`}
+        >
+          <p className="card__name">
+            <span className="card__index">{index + 1}. </span>
             {restaurant.name}
           </p>
         </Link>
-        <p className="rating-price">
+        <p className="card__stars-price">
           <img
-            className="rating"
+            className="card__stars"
             src={getStars(restaurant)}
             alt="star rating"
           />
-          <span className="price">{restaurant.price}</span>
+          <span className="card__price">{restaurant.price}</span>
         </p>
-        <div className="distance-address-logo">
-          <div className="distance-address">
-            <span className="distance">
+        <div className="card__distance-address-logo">
+          <div className="card__distance-address">
+            <span className="card__distance">
               {distanceInMiles(restaurant.distance)} mi
             </span>
-            <FontAwesomeIcon className="icon-circle" icon={faCircle} />
-            <span className="address">{restaurant.location.address1}</span>
+            <FontAwesomeIcon className="card__icon-circle" icon={faCircle} />
+            <span className="card__address">
+              {restaurant.location.address1}
+            </span>
           </div>
           <a
             href={restaurant.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="yelp-link"
+            className="card__link-yelp"
           >
-            <img className="yelp-logo" src={yelpLogo} alt="logo" />
+            <img className="card__icon-yelp" src={yelpLogo} alt="Yelp icon" />
           </a>
         </div>
       </div>
 
-      <div className="info-large">
-        <div className="left">
+      <div className="card__info--large">
+        <div className="card__left-col">
           <Link
-            className="restaurant-link"
+            className="card__details-link"
             to={`/restaurant/${restaurant.alias}/${restaurant.id}`}
           >
-            <p className="name">
-              <span className="restaurant-index" style={{ color: 'black' }}>
-                {index + 1}.{' '}
-              </span>
+            <p className="card__name">
+              <span className="card__index">{index + 1}. </span>
               {restaurant.name}
             </p>
           </Link>
-          <p className="rating-count">
+          <p className="card__stars-count">
             <img
-              className="rating"
+              className="card__stars"
               src={getStars(restaurant)}
               alt="star rating"
             />
-            <span className="count">{restaurant.review_count} reviews</span>
+            <span className="card__count">
+              {restaurant.review_count} reviews
+            </span>
           </p>
-          <p className="categories">{categories}</p>
+          <p className="card__categories">{categories}</p>
         </div>
-        <div className="right">
-          <p className="price-distance">
-            <span className="price">{restaurant.price}</span>
-            <FontAwesomeIcon className="icon-circle" icon={faCircle} />
-            <span className="distance">
+        <div className="card__right-col">
+          <p className="card__price-distance">
+            <span className="card__price">{restaurant.price}</span>
+            <FontAwesomeIcon className="card__icon-circle" icon={faCircle} />
+            <span className="card__distance">
               {distanceInMiles(restaurant.distance)} mi
             </span>
           </p>
-          <p className="phone">{restaurant.display_phone}</p>
-          <p className="address1">{restaurant.location.address1}</p>
-          <p className="address2">
+          <p className="card__phone">{restaurant.display_phone}</p>
+
+          <p className="card__address">{restaurant.location.address1}</p>
+          <p className="card__address">
             {restaurant.location.city}, {restaurant.location.state}
-            <span className="zipcode">{restaurant.location.zip_code}</span>
+            <span className="card__zipcode">
+              {restaurant.location.zip_code}
+            </span>
           </p>
           <a
             href={restaurant.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="yelp-link"
+            className="card__link-yelp"
           >
-            <img className="yelp-logo" src={yelpLogo} alt="logo" />
+            <img className="card__icon-yelp" src={yelpLogo} alt="logo" />
           </a>
         </div>
       </div>
