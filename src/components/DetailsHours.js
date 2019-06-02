@@ -66,7 +66,7 @@ const HoursWrapper = styled.div`
     align-items: flex-start;
     justify-content: space-between;
     border-top: 1px lightgrey solid;
-    padding: 0.5em 0;
+    padding: 1em 0;
   }
 
   .hours__left-col {
@@ -75,7 +75,7 @@ const HoursWrapper = styled.div`
   }
 
   .hours__right-col {
-    min-width: 130px;
+    //min-width: 130px;
     font-size: 0.85em;
     padding: 0;
     margin: 0;
@@ -87,12 +87,13 @@ const HoursWrapper = styled.div`
     margin: 0;
   }
 
-  .hours__right-col-times:first-child {
-    padding-bottom: 1em;
+  .hours__right-col-times:not(:first-child) {
+    padding-top: 0.5rem;
   }
 
   .hours__right-col-closed {
-    padding-top: 0;
+    padding: 0;
+    margin: 0;
   }
 `;
 
