@@ -12,8 +12,6 @@ import yelpapi from '../apis/yelpapi';
 import yelpLogo from '../assets/yelp-icons/Yelp_trademark_RGB.png';
 
 const DetailsWrapper = styled.div`
-  background-color: #f2e8e6;
-
   .leaflet-container {
     width: 325px;
     height: 325px;

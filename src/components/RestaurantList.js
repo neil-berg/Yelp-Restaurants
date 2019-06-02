@@ -12,8 +12,6 @@ import { parseSearchParams } from '../helper';
 import yelpapi from '../apis/yelpapi';
 
 const ResultsWrapper = styled.section`
-  background: #f2e8e6;
-
   .leaflet-container {
     width: 325px;
     height: 325px;
