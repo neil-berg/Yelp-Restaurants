@@ -10,9 +10,11 @@ import yelpLogo from '../assets/yelp-icons/Yelp_trademark_RGB.png';
 import { distanceInMiles, getStars } from '../helper';
 
 const Card = styled(animated.div)`
-  padding: 1rem 0 0 0;
-  margin: 0 1rem;
-  border-bottom: 1px lightgrey solid;
+  //padding: 1rem 0 0 0;
+  padding: 0;
+  margin: 1rem;
+  border: 1px lightgrey solid;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   max-width: 800px;
@@ -32,6 +34,13 @@ const Card = styled(animated.div)`
 
   .card__index {
     color: black;
+  }
+
+  .card__fab {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px black solid;
   }
 
   .card__stars-price {
@@ -79,7 +88,7 @@ const Card = styled(animated.div)`
   }
 
   .card__left-col {
-    flex: 1;
+    flex: 2;
   }
 
   .card__stars-count {
@@ -128,7 +137,7 @@ const Card = styled(animated.div)`
 
   @media screen and (min-width: 600px) {
     flex-direction: row;
-    padding: 1rem 0;
+    //padding: 1rem 0;
 
     .card__info--large {
       display: flex;
@@ -185,6 +194,7 @@ const RestaurantCard = ({ index, restaurant }) => {
             {restaurant.name}
           </p>
         </Link>
+        <button className="card__fab">+</button>
         <p className="card__stars-price">
           <img
             className="card__stars"
@@ -236,6 +246,7 @@ const RestaurantCard = ({ index, restaurant }) => {
             </span>
           </p>
           <p className="card__categories">{categories}</p>
+          <button className="card__fab">+</button>
         </div>
         <div className="card__right-col">
           <p className="card__price-distance">
