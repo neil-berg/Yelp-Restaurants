@@ -12,15 +12,17 @@ import { distanceInMiles, getStars } from '../helper';
 const Card = styled(animated.div)`
   //padding: 1rem 0 0 0;
   padding: 0;
-  margin: 1rem;
+  margin: 1rem 1rem 2rem 1rem;
   border: 1px lightgrey solid;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   max-width: 800px;
+  background: white;
 
   .card__info--small {
     padding: 0.5rem 0.5rem 0 0.5rem;
+    position: relative;
   }
 
   .card__name {
@@ -36,15 +38,7 @@ const Card = styled(animated.div)`
     color: black;
   }
 
-  .card__fab {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    border: 1px black solid;
-  }
-
-  .card__stars-price {
-    padding-top: 1rem;
+  .card__stars-price-logo {
     margin: 0;
     display: flex;
     align-items: center;
@@ -59,10 +53,11 @@ const Card = styled(animated.div)`
     margin-left: 1rem;
   }
 
-  .card__distance-address-logo {
+  .card__distance-address {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    padding-bottom: 1rem;
   }
 
   .card__distance-address {
@@ -81,10 +76,22 @@ const Card = styled(animated.div)`
     height: auto;
   }
 
+  .card__fab {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px black solid;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translateY(50%);
+  }
+
   .card__info--large {
     display: none;
     width: 100%;
     padding: 0.5rem;
+    position: relative;
   }
 
   .card__left-col {
@@ -137,7 +144,6 @@ const Card = styled(animated.div)`
 
   @media screen and (min-width: 600px) {
     flex-direction: row;
-    //padding: 1rem 0;
 
     .card__info--large {
       display: flex;
@@ -155,10 +161,11 @@ const CoverPhoto = styled.div`
   background-image: url("${props => props.image_url}");
   background-position: center 75%;
   background-size: cover;
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
   
-  @media screen and (min-width: 550px) {
+  @media screen and (min-width: 600px) {
     min-width: 175px;
+    border-radius: 5px 0 0 5px;
   }
 `;
 
@@ -194,25 +201,13 @@ const RestaurantCard = ({ index, restaurant }) => {
             {restaurant.name}
           </p>
         </Link>
-        <button className="card__fab">+</button>
-        <p className="card__stars-price">
+        <div className="card__stars-price-logo">
           <img
             className="card__stars"
             src={getStars(restaurant)}
             alt="star rating"
           />
           <span className="card__price">{restaurant.price}</span>
-        </p>
-        <div className="card__distance-address-logo">
-          <div className="card__distance-address">
-            <span className="card__distance">
-              {distanceInMiles(restaurant.distance)} mi
-            </span>
-            <FontAwesomeIcon className="card__icon-circle" icon={faCircle} />
-            <span className="card__address">
-              {restaurant.location.address1}
-            </span>
-          </div>
           <a
             href={restaurant.url}
             target="_blank"
@@ -222,6 +217,14 @@ const RestaurantCard = ({ index, restaurant }) => {
             <img className="card__icon-yelp" src={yelpLogo} alt="Yelp icon" />
           </a>
         </div>
+        <div className="card__distance-address">
+          <span className="card__distance">
+            {distanceInMiles(restaurant.distance)} mi
+          </span>
+          <FontAwesomeIcon className="card__icon-circle" icon={faCircle} />
+          <span className="card__address">{restaurant.location.address1}</span>
+        </div>
+        <button className="card__fab">+</button>
       </div>
 
       <div className="card__info--large">
@@ -246,7 +249,14 @@ const RestaurantCard = ({ index, restaurant }) => {
             </span>
           </p>
           <p className="card__categories">{categories}</p>
-          <button className="card__fab">+</button>
+          <a
+            href={restaurant.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card__link-yelp"
+          >
+            <img className="card__icon-yelp" src={yelpLogo} alt="logo" />
+          </a>
         </div>
         <div className="card__right-col">
           <p className="card__price-distance">
@@ -265,15 +275,8 @@ const RestaurantCard = ({ index, restaurant }) => {
               {restaurant.location.zip_code}
             </span>
           </p>
-          <a
-            href={restaurant.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card__link-yelp"
-          >
-            <img className="card__icon-yelp" src={yelpLogo} alt="logo" />
-          </a>
         </div>
+        <button className="card__fab">+</button>
       </div>
     </Card>
   );
