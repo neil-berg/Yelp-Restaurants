@@ -42,6 +42,10 @@ const CardContainer = styled(animated.div)`
     grid-template-areas:
       'photo info'
       'details details';
+
+    .card__fab {
+      transform: translate3d(calc(50% + 75px), 50%, 0);
+    }
   }
 `;
 
@@ -75,6 +79,7 @@ const RestaurantCard = ({ index, restaurant }) => {
         index={index}
         restaurant={restaurant}
       />
+      {/* <RestaurantDetails restaurantID={restaurant.id} /> */}
       <button className="card__fab">+</button>
       {/* <DetailsDropdown
         className="card__dropdown"
