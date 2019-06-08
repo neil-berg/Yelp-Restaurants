@@ -37,7 +37,12 @@ const Footer = ({ handleOutsideClick }) => (
     <img className="footer__yelp-icon" src={yelpLogo} alt="logo" />
     <p className="footer__yelp-credit">
       Data provided by the{' '}
-      <a className="footer__yelp-link" href="https://www.yelp.com/fusion">
+      <a
+        className="footer__yelp-link"
+        href="https://www.yelp.com/fusion"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Yelp Fusion API
       </a>
     </p>
