@@ -6,7 +6,7 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 import Error from './Error';
 import Loading from './Loading';
 import yelpapi from '../apis/yelpapi';
-import { isOpenNow, getOpenHours } from '../helper';
+import { getOpenHours } from '../helper';
 
 const HoursWrapper = styled.section`
   padding: 0 1rem;
@@ -85,10 +85,10 @@ const RestaurantHours = ({ showDetails, restaurantID }) => {
       }
       setIsLoading(false);
     };
-    if (showDetails) {
+    if (showDetails && Object.keys(hours).length === 0) {
       fetchHours();
     }
-  }, [restaurantID, showDetails]);
+  }, [restaurantID, showDetails, hours]);
 
   if (isError) {
     return <Error />;

@@ -61,7 +61,7 @@ const InfoContainer = styled.div`
   }
 
   .info__row4 {
-    padding-bottom: 1.5rem;
+    padding-bottom: ${props => (props.showdetails === 'show' ? '0' : '1.5rem')};
   }
 
   .info__row4-address1,
@@ -93,14 +93,14 @@ const InfoContainer = styled.div`
   }
 `;
 
-const RestaurantInfo = ({ index, restaurant }) => {
+const RestaurantInfo = ({ index, restaurant, showdetails }) => {
   const categories = restaurant.categories
     .slice(0, 2)
     .map(category => category.title)
     .join(', ');
 
   return (
-    <InfoContainer>
+    <InfoContainer showdetails={showdetails}>
       <div className="info__row1">
         <a
           href={restaurant.url}

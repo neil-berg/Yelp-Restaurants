@@ -91,15 +91,6 @@ export const getStars = restaurant => {
   return ratingToStars[restaurant.rating];
 };
 
-// Retrieve info on whether restuarant is currently open or closed
-export const isOpenNow = hours => {
-  try {
-    return hours[0].is_open_now;
-  } catch (err) {
-    return null;
-  }
-};
-
 // Format open hours to produce an object with weekdays as
 // keys and values as an array storing all open/close times per day
 export const getOpenHours = openHours => {

@@ -21,6 +21,14 @@ const CardContainer = styled(animated.div)`
     flex-direction: column;
   }
 
+  .card__hours-reviews {
+    transform: ${props =>
+      props.showdetails === 'show' ? 'rotateX(0)' : 'rotateX(90deg)'};
+    overflow: ${props => (props.showdetails === 'show' ? '' : 'hidden')};
+    max-height: ${props => (props.showdetails === 'show' ? '1000px' : '0')};
+    transition: all 0.3s;
+  }
+
   .card__fab {
     height: 50px;
     width: 50px;
@@ -34,16 +42,17 @@ const CardContainer = styled(animated.div)`
     background: var(--red);
     border: 1px var(--red) solid;
     color: white;
+    font-size: 1.5em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .card__fab:focus {
+    outline: none;
   }
 
   @media screen and (min-width: 600px) {
     .card__photo-info {
       flex-direction: row;
-    }
-
-    .card__fab {
-      transform: translate3d(calc(50% + 75px), 50%, 0);
     }
   }
 `;
@@ -72,13 +81,18 @@ const RestaurantCard = ({ index, restaurant }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <CardContainer className="card" style={spring}>
+    <CardContainer
+      className="card"
+      style={spring}
+      showdetails={showDetails ? 'show' : 'hide'}
+    >
       <div className="card__photo-info">
         <CoverPhoto className="card__photo" image_url={restaurant.image_url} />
         <RestaurantInfo
           className="card__info"
           index={index}
           restaurant={restaurant}
+          showdetails={showDetails ? 'show' : 'hide'}
         />
       </div>
       <div className="card__hours-reviews">
@@ -95,7 +109,7 @@ const RestaurantCard = ({ index, restaurant }) => {
         className="card__fab"
         onClick={() => setShowDetails(!showDetails)}
       >
-        +
+        {showDetails ? '-' : '+'}
       </button>
     </CardContainer>
   );

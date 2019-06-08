@@ -44,6 +44,7 @@ const ReviewsWrapper = styled.section`
   }
 
   .review-card__header-date {
+    font-size: 0.9em;
     margin: 0 0 0 1rem;
     color: grey;
   }
@@ -79,10 +80,10 @@ const RestaurantReviews = ({ showDetails, restaurantID }) => {
       }
       setIsLoading(false);
     };
-    if (showDetails) {
+    if (showDetails && reviews.length === 0) {
       fetchReviews();
     }
-  }, [restaurantID, showDetails]);
+  }, [restaurantID, showDetails, reviews.length]);
 
   const renderReviewList = reviews.map((review, i) => (
     <div className="review-card" key={i}>
@@ -109,7 +110,6 @@ const RestaurantReviews = ({ showDetails, restaurantID }) => {
       </div>
       <p className="review-card__text">
         {review.text}
-
         <a
           className="review-card__link"
           href={review.url}
