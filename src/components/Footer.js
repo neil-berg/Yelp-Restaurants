@@ -26,6 +26,7 @@ const StyledFooter = styled.footer`
     margin: 0;
   }
 
+  .footer__yelp-link,
   .footer__map-link,
   .footer__icon-link {
     text-decoration: underline;
