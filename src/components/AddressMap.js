@@ -25,11 +25,11 @@ const AddressMap = ({ restaurants }) => {
         icon={customIcon(i + 1)}
       >
         <Popup>
-          <Link to={`/restaurant/${restaurant.alias}/${restaurant.id}`}>
+          <a href={restaurant.url} target="_blank" rel="noopener noreferrer">
             <p style={{ margin: '0', padding: '0', fontWeight: 'bold' }}>
               {restaurant.name}
             </p>
-          </Link>
+          </a>
           <img
             src={getStars(restaurant)}
             alt="star rating"
