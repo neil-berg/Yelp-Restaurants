@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { animated, useSprings } from 'react-spring';
 
@@ -108,6 +109,11 @@ const Home = ({ setInputFood, handleOutsideClick }) => {
   return (
     <HomeWrapper onClick={handleOutsideClick}>{renderOptionList}</HomeWrapper>
   );
+};
+
+Home.propTypes = {
+  setInputFood: PropTypes.func.isRequired,
+  handleOutsideClick: PropTypes.func.isRequired
 };
 
 export default Home;

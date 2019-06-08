@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import yelpLogo from '../assets/yelp-icons/Yelp_trademark_RGB.png';
 
@@ -92,5 +93,9 @@ const Footer = ({ handleOutsideClick }) => (
     </p>
   </StyledFooter>
 );
+
+Footer.propTypes = {
+  handleOutsideClick: PropTypes.func.isRequired
+};
 
 export default Footer;

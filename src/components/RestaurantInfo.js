@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
@@ -61,7 +62,7 @@ const InfoContainer = styled.div`
   }
 
   .info__row4 {
-    padding-bottom: ${props => (props.showdetails === 'show' ? '0' : '1.5rem')};
+    padding-bottom: ${props => (props.showDetails === 'show' ? '0' : '1.5rem')};
   }
 
   .info__row4-address1,
@@ -93,14 +94,14 @@ const InfoContainer = styled.div`
   }
 `;
 
-const RestaurantInfo = ({ index, restaurant, showdetails }) => {
+const RestaurantInfo = ({ index, restaurant, showDetails }) => {
   const categories = restaurant.categories
     .slice(0, 2)
     .map(category => category.title)
     .join(', ');
 
   return (
-    <InfoContainer showdetails={showdetails}>
+    <InfoContainer showDetails={showDetails}>
       <div className="info__row1">
         <a
           href={restaurant.url}
@@ -163,6 +164,40 @@ const RestaurantInfo = ({ index, restaurant, showdetails }) => {
       </div>
     </InfoContainer>
   );
+};
+
+RestaurantInfo.propTypes = {
+  index: PropTypes.number.isRequired,
+  showDetails: PropTypes.string.isRequired,
+  restaurant: PropTypes.shape({
+    alias: PropTypes.string,
+    categories: PropTypes.array.isRequired,
+    coordinates: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired
+    }),
+    display_phone: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    image_url: PropTypes.string.isRequired,
+    is_closed: PropTypes.bool,
+    location: PropTypes.shape({
+      address1: PropTypes.string,
+      address2: PropTypes.string,
+      address3: PropTypes.string,
+      city: PropTypes.string.isRequired,
+      country: PropTypes.string.isRequired,
+      display_address: PropTypes.array.isRequired,
+      state: PropTypes.string.isRequired,
+      zip_code: PropTypes.string.isRequired
+    }),
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string,
+    rating: PropTypes.number.isRequired,
+    review_count: PropTypes.number.isRequired,
+    transactions: PropTypes.array,
+    url: PropTypes.string.isRequired
+  })
 };
 
 export default RestaurantInfo;

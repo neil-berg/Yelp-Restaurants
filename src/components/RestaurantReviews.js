@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Error from './Error';
@@ -7,7 +8,7 @@ import yelpapi from '../apis/yelpapi';
 import { getStars, formatReviewDate } from '../helper';
 
 const ReviewsWrapper = styled.section`
-  margin-bottom: ${props => (props.showdetails ? '1rem' : '0')};
+  margin-bottom: ${props => (props.showDetails ? '1rem' : '0')};
 
   .review-card {
     width: 100%;
@@ -130,10 +131,15 @@ const RestaurantReviews = ({ showDetails, restaurantID }) => {
     return <Loading />;
   }
   return (
-    <ReviewsWrapper className="reviews" showdetails={showDetails}>
+    <ReviewsWrapper className="reviews" showDetails={showDetails}>
       {renderReviewList}
     </ReviewsWrapper>
   );
+};
+
+RestaurantReviews.propTypes = {
+  showDetails: PropTypes.bool.isRequired,
+  restaurantID: PropTypes.string.isRequired
 };
 
 export default RestaurantReviews;

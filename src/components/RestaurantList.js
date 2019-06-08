@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Loading from './Loading';
@@ -123,6 +124,20 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
       <Pagination />
     </ResultsWrapper>
   );
+};
+
+RestaurantList.propTypes = {
+  match: PropTypes.shape({
+    isExact: PropTypes.bool.isRequired,
+    params: PropTypes.shape({
+      locID: PropTypes.string.isRequired,
+      pageID: PropTypes.string.isRequired,
+      termID: PropTypes.string.isRequired
+    }),
+    path: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired
+  }),
+  handleOutsideClick: PropTypes.func.isRequired
 };
 
 export default RestaurantList;

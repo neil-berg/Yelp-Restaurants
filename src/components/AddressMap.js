@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import PropTypes from 'prop-types';
 
 import { getMapCenter, distanceInMiles, getStars } from '../helper';
 
@@ -63,6 +63,10 @@ const AddressMap = ({ restaurants }) => {
       {markers}
     </Map>
   );
+};
+
+AddressMap.propTypes = {
+  restaurants: PropTypes.array.isRequired
 };
 
 export default AddressMap;

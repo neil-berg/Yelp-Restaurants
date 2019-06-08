@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -55,6 +56,15 @@ const Pagination = ({ location }) => {
     );
   });
   return <PageWrapper className="page-container">{renderPages}</PageWrapper>;
+};
+
+Pagination.propTypes = {
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    key: PropTypes.string,
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string
+  })
 };
 
 export default withRouter(Pagination);

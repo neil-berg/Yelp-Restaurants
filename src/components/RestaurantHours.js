@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
@@ -138,6 +139,11 @@ const RestaurantHours = ({ showDetails, restaurantID }) => {
       ) : null}
     </HoursWrapper>
   );
+};
+
+RestaurantHours.propTypes = {
+  showDetails: PropTypes.bool.isRequired,
+  restaurantID: PropTypes.string.isRequired
 };
 
 export default RestaurantHours;

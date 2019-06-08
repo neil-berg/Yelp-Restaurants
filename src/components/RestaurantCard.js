@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { animated, useSpring } from 'react-spring';
 
@@ -92,7 +93,7 @@ const RestaurantCard = ({ index, restaurant }) => {
           className="card__info"
           index={index}
           restaurant={restaurant}
-          showdetails={showDetails ? 'show' : 'hide'}
+          showDetails={showDetails ? 'show' : 'hide'}
         />
       </div>
       <div className="card__hours-reviews">
@@ -113,6 +114,39 @@ const RestaurantCard = ({ index, restaurant }) => {
       </button>
     </CardContainer>
   );
+};
+
+RestaurantCard.propTypes = {
+  index: PropTypes.number.isRequired,
+  restaurant: PropTypes.shape({
+    alias: PropTypes.string,
+    categories: PropTypes.array.isRequired,
+    coordinates: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired
+    }),
+    display_phone: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    image_url: PropTypes.string.isRequired,
+    is_closed: PropTypes.bool,
+    location: PropTypes.shape({
+      address1: PropTypes.string,
+      address2: PropTypes.string,
+      address3: PropTypes.string,
+      city: PropTypes.string.isRequired,
+      country: PropTypes.string.isRequired,
+      display_address: PropTypes.array.isRequired,
+      state: PropTypes.string.isRequired,
+      zip_code: PropTypes.string.isRequired
+    }),
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string,
+    rating: PropTypes.number.isRequired,
+    review_count: PropTypes.number.isRequired,
+    transactions: PropTypes.array,
+    url: PropTypes.string.isRequired
+  })
 };
 
 export default RestaurantCard;

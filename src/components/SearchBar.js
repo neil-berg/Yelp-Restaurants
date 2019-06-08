@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 
@@ -350,6 +351,17 @@ const SearchBar = ({
       </form>
     </Header>
   );
+};
+
+SearchBar.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }),
+  inputFood: PropTypes.string.isRequired,
+  setInputFood: PropTypes.func.isRequired,
+  focus: PropTypes.bool,
+  setFocus: PropTypes.func.isRequired,
+  handleOutsideClick: PropTypes.func.isRequired
 };
 
 export default withRouter(SearchBar);
