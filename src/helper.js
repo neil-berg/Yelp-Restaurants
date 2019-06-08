@@ -92,9 +92,9 @@ export const getStars = restaurant => {
 };
 
 // Retrieve info on whether restuarant is currently open or closed
-export const isOpenNow = details => {
+export const isOpenNow = hours => {
   try {
-    return details.hours[0].is_open_now;
+    return hours[0].is_open_now;
   } catch (err) {
     return null;
   }
@@ -102,7 +102,7 @@ export const isOpenNow = details => {
 
 // Format open hours to produce an object with weekdays as
 // keys and values as an array storing all open/close times per day
-export const getOpenHours = details => {
+export const getOpenHours = openHours => {
   let formattedHours = {
     Monday: [],
     Tuesday: [],
@@ -127,7 +127,7 @@ export const getOpenHours = details => {
     const hours = Number(time.slice(0, 2));
     const mins = time.slice(2, 4);
     if (hours === 0) {
-      return 'MIDNIGHT';
+      return '12:00AM';
     } else if (hours > 12) {
       return `${hours - 12}:${mins}PM`;
     } else {
@@ -136,8 +136,7 @@ export const getOpenHours = details => {
   };
 
   try {
-    const hoursArr = details.hours[0].open;
-    hoursArr.forEach(item => {
+    openHours.forEach(item => {
       const day = idxToDay[item.day];
       const start = formatTime(item.start);
       const end = formatTime(item.end);

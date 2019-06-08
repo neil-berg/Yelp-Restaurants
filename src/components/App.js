@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './Home';
 import SearchBar from './SearchBar';
 import RestaurantList from './RestaurantList';
-import RestaurantDetails from './RestaurantDetails';
 import NotFound from './NotFound';
 import Footer from './Footer';
 
@@ -44,15 +43,6 @@ const App = () => {
             path="/search/:termID/:locID/:pageID"
             render={props => (
               <RestaurantList
-                {...props}
-                handleOutsideClick={handleOutsideClick}
-              />
-            )}
-          />
-          <Route
-            path="/restaurant/:aliasID/:restaurantID"
-            render={props => (
-              <RestaurantDetails
                 {...props}
                 handleOutsideClick={handleOutsideClick}
               />

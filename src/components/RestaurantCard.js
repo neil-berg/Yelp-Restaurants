@@ -1,25 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { animated, useSpring } from 'react-spring';
 
 import RestaurantInfo from './RestaurantInfo';
-import RestaurantDetails from './RestaurantDetails';
+import RestaurantHours from './RestaurantHours';
+import RestaurantReviews from './RestaurantReviews';
 
 const CardContainer = styled(animated.div)`
   padding: 0;
   margin: 1rem 1rem 2rem 1rem;
   border: 1px lightgrey solid;
   border-radius: 5px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    'photo'
-    'info'
-    'details';
   max-width: 800px;
   background: white;
   position: relative;
+
+  .card__photo-info,
+  .card__hours-reviews {
+    display: flex;
+    flex-direction: column;
+  }
 
   .card__fab {
     height: 50px;
@@ -38,10 +38,9 @@ const CardContainer = styled(animated.div)`
   }
 
   @media screen and (min-width: 600px) {
-    grid-template-columns: 175px 1fr;
-    grid-template-areas:
-      'photo info'
-      'details details';
+    .card__photo-info {
+      flex-direction: row;
+    }
 
     .card__fab {
       transform: translate3d(calc(50% + 75px), 50%, 0);
@@ -56,7 +55,6 @@ const CoverPhoto = styled.div`
   background-position: center 75%;
   background-size: cover;
   border-radius: 5px 5px 0 0;
-  grid-area: photo;
   
   @media screen and (min-width: 600px) {
     min-width: 175px;
@@ -71,20 +69,34 @@ const RestaurantCard = ({ index, restaurant }) => {
     config: { duration: 400 }
   });
 
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
     <CardContainer className="card" style={spring}>
-      <CoverPhoto className="card__photo" image_url={restaurant.image_url} />
-      <RestaurantInfo
-        className="card__info"
-        index={index}
-        restaurant={restaurant}
-      />
-      {/* <RestaurantDetails restaurantID={restaurant.id} /> */}
-      <button className="card__fab">+</button>
-      {/* <DetailsDropdown
-        className="card__dropdown"
-        restaurantID={restaurant.id}
-      /> */}
+      <div className="card__photo-info">
+        <CoverPhoto className="card__photo" image_url={restaurant.image_url} />
+        <RestaurantInfo
+          className="card__info"
+          index={index}
+          restaurant={restaurant}
+        />
+      </div>
+      <div className="card__hours-reviews">
+        <RestaurantHours
+          showDetails={showDetails}
+          restaurantID={restaurant.id}
+        />
+        <RestaurantReviews
+          showDetails={showDetails}
+          restaurantID={restaurant.id}
+        />
+      </div>
+      <button
+        className="card__fab"
+        onClick={() => setShowDetails(!showDetails)}
+      >
+        +
+      </button>
     </CardContainer>
   );
 };

@@ -7,8 +7,8 @@ import yelpLogo from '../assets/yelp-icons/Yelp_trademark_RGB.png';
 import { distanceInMiles, getStars } from '../helper';
 
 const InfoContainer = styled.div`
-  grid-area: info;
   padding: 0.5rem 0.5rem 0 0.5rem;
+  flex: 1;
 
   .info__row1,
   .info__row2,
