@@ -359,7 +359,7 @@ SearchBar.propTypes = {
   }),
   inputFood: PropTypes.string.isRequired,
   setInputFood: PropTypes.func.isRequired,
-  focus: PropTypes.bool,
+  focus: PropTypes.string,
   setFocus: PropTypes.func.isRequired,
   handleOutsideClick: PropTypes.func.isRequired
 };
