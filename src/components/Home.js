@@ -99,9 +99,12 @@ const Home = ({ setInputFood, handleOutsideClick }) => {
         className="option"
         onClick={() => setInputFood(uppercaseOption)}
         style={springs[i]}
+        data-testid="food-option"
       >
         {options[option]}
-        <span className="option__name">{uppercaseOption}</span>
+        <span className="option__name" data-testid="food-option-name">
+          {uppercaseOption}
+        </span>
       </animated.div>
     );
   });
