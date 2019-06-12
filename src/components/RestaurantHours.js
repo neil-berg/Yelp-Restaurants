@@ -92,7 +92,7 @@ const RestaurantHours = ({ showDetails, restaurantID }) => {
   }, [restaurantID, showDetails, hours]);
 
   if (isError) {
-    return <Error />;
+    return <Error text="Error loading hours." />;
   }
 
   if (isLoading) {
