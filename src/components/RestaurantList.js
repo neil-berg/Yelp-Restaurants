@@ -91,8 +91,15 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
     };
   }, []);
 
+  // Ensure we start at the top of the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
   if (isError) {
-    return <Error />;
+    return (
+      <Error text="Hm, there is an issue with this search. Try another one!" />
+    );
   }
 
   if (isLoading) {
