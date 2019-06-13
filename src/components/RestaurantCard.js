@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import { animated, useSpring } from 'react-spring';
 
 import RestaurantInfo from './RestaurantInfo';
-import RestaurantHours from './RestaurantHours';
-import RestaurantReviews from './RestaurantReviews';
+import RestaurantDetails from './RestaurantDetails';
+// import RestaurantHours from './RestaurantHours';
+// import RestaurantReviews from './RestaurantReviews';
 
 const CardContainer = styled(animated.div)`
   padding: 0;
@@ -96,16 +97,11 @@ const RestaurantCard = ({ index, restaurant }) => {
           showDetails={showDetails ? 'show' : 'hide'}
         />
       </div>
-      <div className="card__hours-reviews">
-        <RestaurantHours
-          showDetails={showDetails}
-          restaurantID={restaurant.id}
-        />
-        <RestaurantReviews
-          showDetails={showDetails}
-          restaurantID={restaurant.id}
-        />
-      </div>
+      <RestaurantDetails
+        className="card__hours-reviews"
+        showDetails={showDetails}
+        restaurantID={restaurant.id}
+      />
       <button
         className="card__fab"
         onClick={() => setShowDetails(!showDetails)}

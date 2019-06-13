@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 
-import Error from './Error';
-import Loading from './Loading';
-import yelpapi from '../apis/yelpapi';
 import { getOpenHours } from '../helper';
 
 const HoursWrapper = styled.section`
@@ -68,37 +65,7 @@ const HoursWrapper = styled.section`
   }
 `;
 
-const RestaurantHours = ({ showDetails, restaurantID }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  // Fetch hours of this restaurant
-  const [hours, setHours] = useState({});
-  useEffect(() => {
-    const fetchHours = async () => {
-      setIsLoading(true);
-      setIsError(false);
-      try {
-        const response = await yelpapi.get(`/businesses/${restaurantID}`);
-        setHours(response.data.hours[0]);
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    if (showDetails && Object.keys(hours).length === 0) {
-      fetchHours();
-    }
-  }, [restaurantID, showDetails, hours]);
-
-  if (isError) {
-    return <Error text="Error loading hours." />;
-  }
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
+const RestaurantHours = ({ hours }) => {
   const openHours = getOpenHours(hours.open);
 
   const renderHoursList = hoursObj => {
@@ -142,8 +109,7 @@ const RestaurantHours = ({ showDetails, restaurantID }) => {
 };
 
 RestaurantHours.propTypes = {
-  showDetails: PropTypes.bool.isRequired,
-  restaurantID: PropTypes.string.isRequired
+  hours: PropTypes.object.isRequired
 };
 
 export default RestaurantHours;

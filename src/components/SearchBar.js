@@ -357,9 +357,9 @@ SearchBar.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }),
-  inputFood: PropTypes.string.isRequired,
+  inputFood: PropTypes.string,
   setInputFood: PropTypes.func.isRequired,
-  focus: PropTypes.string.isRequired,
+  focus: PropTypes.string,
   setFocus: PropTypes.func.isRequired,
   handleOutsideClick: PropTypes.func.isRequired
 };

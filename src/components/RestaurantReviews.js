@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Error from './Error';
-import Loading from './Loading';
-import yelpapi from '../apis/yelpapi';
 import { getStars, formatReviewDate } from '../helper';
 
 const ReviewsWrapper = styled.section`
-  margin-bottom: ${props => (props.showDetails ? '1rem' : '0')};
+  // margin-bottom: ${props => (props.showDetails ? '1rem' : '0')};
+
+  margin-bottom: 1rem;
 
   .review-card {
     width: 100%;
@@ -63,29 +62,7 @@ const ReviewsWrapper = styled.section`
   }
 `;
 
-const RestaurantReviews = ({ showDetails, restaurantID }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [reviews, setReviews] = useState([]);
-  useEffect(() => {
-    const fetchReviews = async () => {
-      setIsLoading(true);
-      setIsError(false);
-      try {
-        const response_reviews = await yelpapi.get(
-          `/businesses/${restaurantID}/reviews`
-        );
-        setReviews(response_reviews.data.reviews);
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    if (showDetails && reviews.length === 0) {
-      fetchReviews();
-    }
-  }, [restaurantID, showDetails, reviews.length]);
-
+const RestaurantReviews = ({ reviews }) => {
   const renderReviewList = reviews.map((review, i) => (
     <div className="review-card" key={i}>
       <div className="review-card__header">
@@ -123,23 +100,13 @@ const RestaurantReviews = ({ showDetails, restaurantID }) => {
     </div>
   ));
 
-  if (isError) {
-    return <Error />;
-  }
-
-  if (isLoading) {
-    return <Loading />;
-  }
   return (
-    <ReviewsWrapper className="reviews" showDetails={showDetails}>
-      {renderReviewList}
-    </ReviewsWrapper>
+    <ReviewsWrapper className="reviews">{renderReviewList}</ReviewsWrapper>
   );
 };
 
 RestaurantReviews.propTypes = {
-  showDetails: PropTypes.bool.isRequired,
-  restaurantID: PropTypes.string.isRequired
+  reviews: PropTypes.array.isRequired
 };
 
 export default RestaurantReviews;
