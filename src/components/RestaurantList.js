@@ -111,14 +111,22 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
   }
 
   return (
-    <ResultsWrapper scrollY={scrollY} onClick={handleOutsideClick}>
+    <ResultsWrapper
+      data-testid="restaurant-wrapper"
+      scrollY={scrollY}
+      onClick={handleOutsideClick}
+    >
       <div className="map-container">
         <AddressMap restaurants={restaurants} />
       </div>
       <section className="results">
         <ul className="results__list">
           {restaurants.map((restaurant, i) => (
-            <li key={restaurant.id} className="results__item">
+            <li
+              data-testid="restaurant-list-item"
+              key={restaurant.id}
+              className="results__item"
+            >
               <RestaurantCard
                 className="results__card"
                 index={i}
@@ -128,7 +136,7 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
           ))}
         </ul>
       </section>
-      <Pagination />
+      {/* <Pagination /> */}
     </ResultsWrapper>
   );
 };

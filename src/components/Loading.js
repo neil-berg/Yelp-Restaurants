@@ -26,7 +26,7 @@ const Dot = styled.div`
 
 const Loading = () => {
   return (
-    <DotWrapper>
+    <DotWrapper data-testid="loading-dots">
       <Dot delay="0s" />
       <Dot delay=".1s" />
       <Dot delay=".2s" />

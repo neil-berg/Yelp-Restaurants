@@ -82,6 +82,7 @@ describe('<SearchBar />', () => {
 
   test('createSearchSlug is called on valid form submit', () => {
     const slugMock = jest.spyOn(helper, 'createSearchSlug');
+    // Bring in non-empty food input
     const newProps = { ...props, inputFood: 'Thai' };
     const { getByTestId, getByPlaceholderText } = renderWithRouter(
       <SearchBar {...newProps} />,
