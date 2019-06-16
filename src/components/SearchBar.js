@@ -339,6 +339,7 @@ const SearchBar = ({
           </ul>
         </div>
         <button
+          data-testid="form-button"
           className="form__button"
           type="submit"
           disabled={isLoadingLocation}
