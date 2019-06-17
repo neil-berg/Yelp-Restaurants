@@ -104,6 +104,7 @@ const RestaurantInfo = ({ index, restaurant, showDetails }) => {
     <InfoContainer showDetails={showDetails}>
       <div className="info__row1">
         <a
+          data-testid="restaurant-link"
           href={restaurant.url}
           target="_blank"
           rel="noopener noreferrer"
@@ -123,7 +124,7 @@ const RestaurantInfo = ({ index, restaurant, showDetails }) => {
             src={getStars(restaurant)}
             alt="star rating"
           />
-          <span className="info__row2-count">
+          <span data-testid="review-count" className="info__row2-count">
             {restaurant.review_count} reviews
           </span>
         </div>
@@ -152,7 +153,7 @@ const RestaurantInfo = ({ index, restaurant, showDetails }) => {
         >
           <img className="icon-yelp" src={yelpLogo} alt="logo" />
         </a>
-        <div className="info__row4-address">
+        <div data-testid="restaurant-address" className="info__row4-address">
           <p className="info__row4-address1">{restaurant.location.address1}</p>
           <p className="info__row4-address2">
             {restaurant.location.city}, {restaurant.location.state}
