@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 import Error from './Error';
 import Loading from './Loading';
 import RestaurantHours from './RestaurantHours';
 import RestaurantReviews from './RestaurantReviews';
 import yelpapi from '../apis/yelpapi';
+
+const DetailsWrapper = styled.div`
+  transform: ${props => (props.showDetails ? 'rotateX(0)' : 'rotateX(90deg)')};
+  overflow: ${props => (props.showDetails ? '' : 'hidden')};
+  max-height: ${props => (props.showDetails ? '1000px' : '0')};
+  transition: all 0.3s;
+`;
 
 const RestaurantDetails = ({ showDetails, restaurantID }) => {
   // Fetch hours and user reviews
@@ -47,10 +55,10 @@ const RestaurantDetails = ({ showDetails, restaurantID }) => {
   }
 
   return (
-    <>
+    <DetailsWrapper showDetails={showDetails}>
       <RestaurantHours hours={hours} />
       <RestaurantReviews reviews={reviews} />
-    </>
+    </DetailsWrapper>
   );
 };
 

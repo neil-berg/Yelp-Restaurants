@@ -5,8 +5,6 @@ import { animated, useSpring } from 'react-spring';
 
 import RestaurantInfo from './RestaurantInfo';
 import RestaurantDetails from './RestaurantDetails';
-// import RestaurantHours from './RestaurantHours';
-// import RestaurantReviews from './RestaurantReviews';
 
 const CardContainer = styled(animated.div)`
   padding: 0;
@@ -21,14 +19,6 @@ const CardContainer = styled(animated.div)`
   .card__hours-reviews {
     display: flex;
     flex-direction: column;
-  }
-
-  .card__hours-reviews {
-    transform: ${props =>
-      props.showdetails === 'show' ? 'rotateX(0)' : 'rotateX(90deg)'};
-    overflow: ${props => (props.showdetails === 'show' ? '' : 'hidden')};
-    max-height: ${props => (props.showdetails === 'show' ? '1000px' : '0')};
-    transition: all 0.3s;
   }
 
   .card__fab {
@@ -83,11 +73,7 @@ const RestaurantCard = ({ index, restaurant }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <CardContainer
-      className="card"
-      style={spring}
-      showdetails={showDetails ? 'show' : 'hide'}
-    >
+    <CardContainer className="card" style={spring}>
       <div className="card__photo-info">
         <CoverPhoto className="card__photo" image_url={restaurant.image_url} />
         <RestaurantInfo
@@ -98,7 +84,6 @@ const RestaurantCard = ({ index, restaurant }) => {
         />
       </div>
       <RestaurantDetails
-        className="card__hours-reviews"
         showDetails={showDetails}
         restaurantID={restaurant.id}
       />

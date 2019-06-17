@@ -62,7 +62,7 @@ const InfoContainer = styled.div`
   }
 
   .info__row4 {
-    padding-bottom: ${props => (props.showDetails === 'show' ? '0' : '1.5rem')};
+    padding-bottom: ${props => (props.showDetails ? '0' : '1.5rem')};
   }
 
   .info__row4-address1,

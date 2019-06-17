@@ -137,7 +137,7 @@ describe('<RestaurantList />', () => {
 
     // 2 restaurants should be visisble, since 2 are included in the mocked response
     const restaurantItems = await getAllByTestId('restaurant-list-item');
-    expect(restaurantItems.length).toBe(2);
+    expect(restaurantItems.length).toBe(mockResponse.data.businesses.length);
 
     // Names of each restaurant should be visible to the user
     expect(getByText('Pinches Tacos')).toBeInTheDocument;
