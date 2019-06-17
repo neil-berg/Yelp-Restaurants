@@ -1,5 +1,6 @@
 import React from 'react';
 import { cleanup, render, waitForElement } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import mockAxios from 'axios';
 import * as helper from '../helper';
 
@@ -118,23 +119,27 @@ describe('<RestaurantList />', () => {
     window.scrollTo.mockClear();
     mockAxios.get.mockImplementationOnce(() => Promise.resolve(mockResponse));
     const { getByText, getByTestId, getAllByTestId, debug } = render(
-      <RestaurantList match={match} handleOutsideClick={handleOutsideClick} />
+      <MemoryRouter>
+        <RestaurantList match={match} handleOutsideClick={handleOutsideClick} />
+      </MemoryRouter>
     );
 
     // Gets called twice since the component rerenders twice
     // by the time data fetching occurs
     expect(mockParseSearchParams).toHaveBeenCalledTimes(2);
 
+    // Check for loading dots components before data arrives
     expect(getByTestId('loading-dots')).toBeInTheDocument;
 
-    const resolvedDiv = await waitForElement(() =>
-      getByTestId('restaurant-wrapper')
-    );
+    // Data arrives, so we should see the overall wrapper for the list
+    await waitForElement(() => getByTestId('restaurant-wrapper'));
     expect(getByTestId('restaurant-wrapper')).toBeInTheDocument;
 
+    // 2 restaurants should be visisble, since 2 are included in the mocked response
     const restaurantItems = await getAllByTestId('restaurant-list-item');
     expect(restaurantItems.length).toBe(2);
 
+    // Names of each restaurant should be visible to the user
     expect(getByText('Pinches Tacos')).toBeInTheDocument;
     expect(getByText('Guisados')).toBeInTheDocument;
     //debug();

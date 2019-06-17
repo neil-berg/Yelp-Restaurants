@@ -136,7 +136,7 @@ const RestaurantList = ({ match, handleOutsideClick }) => {
           ))}
         </ul>
       </section>
-      {/* <Pagination /> */}
+      <Pagination />
     </ResultsWrapper>
   );
 };
