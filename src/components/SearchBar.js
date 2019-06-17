@@ -195,11 +195,13 @@ const Header = styled.header`
     }
 
     .form__button:hover {
-      background: var(--darkred);
+      background: ${props =>
+        props.isLoadingLocation ? 'grey' : 'var(--darkred)'};
     }
 
     .form__button:active {
-      background: var(--lightred);
+      background: ${props =>
+        props.isLoadingLocation ? 'grey' : 'var(--lightred)'};
     }
   }
 `;
