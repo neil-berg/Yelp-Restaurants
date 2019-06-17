@@ -30,6 +30,8 @@ afterAll(() => {
 // Set spies on helper functions used in this component
 const mockGetStars = jest.spyOn(helper, 'getStars');
 const mockDistanceInMiles = jest.spyOn(helper, 'distanceInMiles');
+const mockGetOpenHours = jest.spyOn(helper, 'getOpenHours');
+const mockFormatReviewDate = jest.spyOn(helper, 'formatReviewDate');
 
 // Create mock index and restuarant data that RestaurantCard receives as props
 const mockIndex = 1;
@@ -147,10 +149,7 @@ const mockReviews = {
 };
 
 describe('<RestaurantCard />', () => {
-  test('card renders with overview details', async () => {
-    mockAxios.get.mockImplementationOnce(() => Promise.resolve(mockHours));
-    mockAxios.get.mockImplementationOnce(() => Promise.resolve(mockReviews));
-
+  test('card initially renders with overview details', () => {
     const { debug, getByText, getByTestId } = render(
       <RestaurantCard index={mockIndex} restaurant={mockRestaurant} />
     );
@@ -190,6 +189,21 @@ describe('<RestaurantCard />', () => {
 
     // Assert that a button with "+" is visible initially
     expect(getByText('+')).toBeVisible;
+  });
+
+  test('hours and reviews render on button click', async () => {
+    const {
+      debug,
+      getByText,
+      getByTestId,
+      getAllByTestId,
+      getAllByText
+    } = render(
+      <RestaurantCard index={mockIndex} restaurant={mockRestaurant} />
+    );
+
+    mockAxios.get.mockResolvedValueOnce(mockHours);
+    mockAxios.get.mockResolvedValueOnce(mockReviews);
 
     // Assert that button text changes to "-" when clicked
     fireEvent.click(getByText('+'));
@@ -198,8 +212,43 @@ describe('<RestaurantCard />', () => {
     // Loading dots reappear while loading hours and reviews
     expect(getByTestId('loading-dots')).toBeTruthy;
 
+    // Wait for details wrapper to appear
     await waitForElement(() => getByTestId('restaurant-details'));
-    expect(getByTestId('restaurant-details')).toBeTruthy;
+
+    // Assert helper function has been called
+    expect(mockGetOpenHours).toHaveBeenCalled;
+
+    // Assert that either 'Open Now' or 'Closed' is visible
+    expect(
+      mockHours.data.hours[0].is_open_now
+        ? getByText('Open Now')
+        : getByText('Closed')
+    ).toBeVisible;
+
+    // Assert that all line items of restaurant hours match incoming data
+    expect(getAllByTestId('restaurant-hours-item').length).toBe(
+      mockHours.data.hours[0].open.length
+    );
+
+    // Assert that helper functions were called
+    expect(mockFormatReviewDate).toHaveBeenCalled;
+    expect(mockGetStars).toHaveBeenCalled;
+
+    // Assert all user avatars are sourced from the correct URL
+    expect(getAllByTestId('review-user-avatar').map(user => user.src)).toEqual(
+      mockReviews.data.reviews.map(review => review.user.image_url)
+    );
+
+    // Assert all user names appear in the review header
+    expect(
+      getAllByTestId('review-user-name').map(user => user.textContent)
+    ).toEqual(mockReviews.data.reviews.map(review => review.user.name));
+
+    // Assert that all links to the full review have correct URL
+    expect(getAllByText('Read full review').map(link => link.href)).toEqual(
+      mockReviews.data.reviews.map(review => review.url)
+    );
+
     //debug();
   });
 });

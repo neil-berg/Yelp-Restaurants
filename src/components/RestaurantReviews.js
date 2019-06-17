@@ -67,12 +67,18 @@ const RestaurantReviews = ({ reviews }) => {
     <div className="review-card" key={i}>
       <div className="review-card__header">
         <img
+          data-testid="review-user-avatar"
           className="review-card__header-avatar"
           src={review.user.image_url}
           alt="Reviewer avatar"
         />
         <div className="review-card__header-right">
-          <p className="review-card__header-name">{review.user.name}</p>
+          <p
+            data-testid="review-user-name"
+            className="review-card__header-name"
+          >
+            {review.user.name}
+          </p>
 
           <div className="review-card__header-stars-date">
             <img

@@ -70,7 +70,7 @@ const RestaurantHours = ({ hours }) => {
 
   const renderHoursList = hoursObj => {
     return Object.keys(hoursObj).map((day, i) => (
-      <li key={i} className="hours__item">
+      <li data-testid="restaurant-hours-item" key={i} className="hours__item">
         <p className="hours__left-col">{day}</p>
         <div className="hours__right-col">
           {hoursObj[day].length > 0 ? (
