@@ -55,7 +55,7 @@ const RestaurantDetails = ({ showDetails, restaurantID }) => {
   }
 
   return (
-    <DetailsWrapper showDetails={showDetails}>
+    <DetailsWrapper data-testid="restaurant-details" showDetails={showDetails}>
       <RestaurantHours hours={hours} />
       <RestaurantReviews reviews={reviews} />
     </DetailsWrapper>
