@@ -7,7 +7,7 @@ import RestaurantInfo from './RestaurantInfo';
 import RestaurantDetails from './RestaurantDetails';
 
 const CardContainer = styled(animated.div)`
-  padding: 0;
+  padding: ${props => (props.showdetails === 'show' ? '0' : '0 0 1.5rem 0')};
   margin: 1rem 1rem 2rem 1rem;
   border: 1px lightgrey solid;
   border-radius: 5px;
@@ -43,6 +43,7 @@ const CardContainer = styled(animated.div)`
   }
 
   @media screen and (min-width: 600px) {
+    padding: 0;
     .card__photo-info {
       flex-direction: row;
     }
@@ -73,7 +74,11 @@ const RestaurantCard = ({ index, restaurant }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <CardContainer className="card" style={spring}>
+    <CardContainer
+      className="card"
+      showdetails={showDetails ? 'show' : 'hide'}
+      style={spring}
+    >
       <div className="card__photo-info">
         <CoverPhoto className="card__photo" image_url={restaurant.image_url} />
         <RestaurantInfo
