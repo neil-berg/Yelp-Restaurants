@@ -249,6 +249,9 @@ describe('<RestaurantCard />', () => {
       mockReviews.data.reviews.map(review => review.url)
     );
 
+    // Finally, assert that details are hidden after button clicked again
+    fireEvent.click(getByText('-'));
+    expect(getByTestId('restaurant-details')).not.toBeVisible;
     //debug();
   });
 });
